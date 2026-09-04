@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>짱스픽 — 수강 전 레벨테스트</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #f0f2f0;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #1a1a1a;
+      min-height: 100vh;
+      padding: 32px 16px 80px;
+    }
+
+    #app {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .test-header {
+      background: #0a3d2e;
+      border-radius: 16px;
+      padding: 36px 40px 32px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .test-header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(29,158,117,0.18);
+    }
+    .test-header::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: 50px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(93,202,165,0.1);
+    }
+    .brand-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      color: #5DCAA5;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .test-header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .test-header p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    /* PROGRESS */
+    .progress-wrap {
+      margin-bottom: 20px;
+    }
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+    .progress-bar-bg {
+      background: #dde8e4;
+      border-radius: 999px;
+      height: 6px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: #1D9E75;
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    /* TABS */
+    .section-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .section-tab {
+      font-size: 12px;
+      font-family: 'Noto Sans KR', sans-serif;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid #c5d5cf;
+      background: #fff;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .section-tab.active {
+      background: #0a3d2e;
+      color: #fff;
+      border-color: #0a3d2e;
+    }
+    .section-tab.done {
+      background: #E1F5EE;
+      color: #0f6e56;
+      border-color: #5DCAA5;
+    }
+
+    /* CARD */
+    .section-card {
+      background: #fff;
+      border: 1px solid #e0ebe6;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .section-card.visible { display: block; }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f6e56;
+      letter-spacing: 0.1em;
+      margin-bottom: 22px;
+      text-transform: uppercase;
+    }
+
+    /* QUESTIONS */
+    .q-block {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .q-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .q-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    .q-sub {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    /* RADIO */
+    .radio-group { display: flex; flex-direction: column; gap: 8px; }
+    .radio-group.row { flex-direction: row; flex-wrap: wrap; }
+    .radio-group.row .radio-opt { flex: 1; min-width: 120px; justify-content: center; }
+    .radio-opt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid #e0e8e4;
+      cursor: pointer;
+      font-size: 13px;
+      color: #333;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all 0.15s;
+      background: #fff;
+    }
+    .radio-opt:hover { border-color: #5DCAA5; background: #f0faf6; }
+    .radio-opt input { accent-color: #1D9E75; }
+    .radio-opt.selected { border-color: #1D9E75; background: #E1F5EE; }
+
+    /* TEXT */
+    .text-input {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-family: 'Noto Sans KR', sans-serif;
+      border: 1px solid #d0ddd8;
+      border-radius: 10px;
+      background: #fff;
+      color: #1a1a1a;
+      margin-top: 4px;
+      resize: vertical;
+      transition: border-color 0.15s;
+    }
+    .text-input:focus { outline: none; border-color: #1D9E75; }
+
+    .fill-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: #333;
+      line-height: 2;
+    }
+    .fill-input {
+      border: none;
+      border-bottom: 2px solid #1D9E75;
+      background: transparent;
+      font-size: 13px;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #1a1a1a;
+      padding: 2px 6px;
+      width: 120px;
+      outline: none;
+    }
+
+    .passage-box {
+      background: #f7faf8;
+      border-left: 3px solid #1D9E75;
+      border-radius: 0 10px 10px 0;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.8;
+      color: #333;
+      margin-bottom: 14px;
+    }
+
+    /* NAV */
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      gap: 12px;
+    }
+    .btn {
+      padding: 11px 24px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'Noto Sans KR', sans-serif;
+      cursor: pointer;
+      border: 1px solid #c5d5cf;
+      background: #fff;
+      color: #333;
+      transition: all 0.15s;
+    }
+    .btn:hover { background: #f0f4f2; }
+    .btn-primary {
+      background: #0a3d2e;
+      color: #fff;
+      border-color: #0a3d2e;
+    }
+    .btn-primary:hover { background: #0f5c42; }
+    .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* SUBMIT OVERLAY */
+    .submit-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,61,46,0.85);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .submit-overlay.visible { display: flex; }
+    .submit-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 40px 36px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    .submit-icon {
+      width: 56px;
+      height: 56px;
+      background: #E1F5EE;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 28px;
+    }
+    .submit-box h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0a3d2e;
+      margin-bottom: 10px;
+    }
+    .submit-box p {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .submit-box .btn-primary {
+      width: 100%;
+      padding: 13px;
+      font-size: 14px;
+    }
+    .error-msg {
+      display: none;
+      background: #fff3f3;
+      border: 1px solid #f0aaaa;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #c0392b;
+      margin-top: 14px;
+    }
+    .error-msg.visible { display: block; }
+
+    /* REQUIRED */
+    .req { color: #c0392b; font-weight: 700; margin-left: 3px; }
+    .q-note {
+      font-size: 12px; color: #777;
+      line-height: 1.6; margin-top: 8px;
+    }
+    .contact-box {
+      background: #f7faf8;
+      border: 1px solid #d7e8e1;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+    .contact-box .q-label { margin-bottom: 8px; }
+    .contact-box .text-input { margin-top: 8px; }
+    .input-error { border-color: #e07a7a !important; background: #fff8f8; }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <div class="test-header">
+    <div class="brand-label">JJANGSPEAK · 짱스픽</div>
+    <h1>수강 전 영어 레벨테스트</h1>
+    <p>총 4개 파트 · 약 15~20분 소요<br>
+    아는 만큼만 쓰시면 됩니다 — 모르는 문제는 비워두셔도 괜찮아요 😊</p>
+  </div>
+
+  <div class="section-tabs" id="sectionTabs">
+    <div class="section-tab active" data-sec="0">기본 정보</div>
+    <div class="section-tab" data-sec="1">Part 1 문법</div>
+    <div class="section-tab" data-sec="2">Part 2 어휘</div>
+    <div class="section-tab" data-sec="3">Part 3 독해</div>
+    <div class="section-tab" data-sec="4">Part 4 작문</div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <span id="progressLabel">1 / 5 섹션</span>
+      <span id="progressPct">20%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressBar" style="width:20%"></div>
+    </div>
+  </div>
+
+  <!-- SEC 0: 기본 정보 -->
+  <div class="section-card visible" id="sec0">
+    <div class="section-title">기본 정보</div>
+
+    <div class="contact-box">
+      <div class="q-label">결과 리포트를 받으실 곳<span class="req">*</span></div>
+      <div class="q-note" style="margin-top:0;margin-bottom:14px">
+        작성해 주신 곳으로 <strong>맞춤 분석 리포트</strong>를 보내드려요. 다른 용도로는 쓰지 않습니다 😊
+      </div>
+
+      <div style="margin-bottom:16px">
+        <div class="q-label" style="font-size:13px">이름<span class="req">*</span></div>
+        <input class="text-input" type="text" id="q_name" placeholder="예) 장다현" autocomplete="name">
+      </div>
+
+      <div class="q-label" style="font-size:13px">연락받을 방법<span class="req">*</span></div>
+      <div class="radio-group row" id="rg_contact" style="margin-bottom:6px">
+        <label class="radio-opt"><input type="radio" name="contact_type" value="이메일" checked> 이메일</label>
+        <label class="radio-opt"><input type="radio" name="contact_type" value="전화번호"> 전화번호</label>
+      </div>
+      <input class="text-input" type="email" id="q_contact" placeholder="example@email.com" autocomplete="email" inputmode="email">
+      <div class="q-note" id="contactHint">둘 중 편한 것 하나만 적어주시면 됩니다.</div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">영어 공부의 목적이 무엇인가요?</div>
+      <textarea class="text-input" rows="2" id="q_purpose" placeholder="예) 해외여행, 업무, 이민 준비, 그냥 배우고 싶어서..."></textarea>
+    </div>
+    <div class="q-block">
+      <div class="q-label">3개월 후 원하는 모습은? <span style="font-weight:400;color:#888">(영어 실력 기준)</span></div>
+      <textarea class="text-input" rows="2" id="q_goal" placeholder="예) 간단한 영어 문장을 읽고 말할 수 있으면 좋겠어요."></textarea>
+    </div>
+    <div class="q-block">
+      <div class="q-label">하루에 영어 공부에 투자할 수 있는 시간은?</div>
+      <div class="radio-group" id="rg_time">
+        <label class="radio-opt"><input type="radio" name="study_time" value="30분 미만"> 30분 미만</label>
+        <label class="radio-opt"><input type="radio" name="study_time" value="30분~1시간"> 30분 ~ 1시간</label>
+        <label class="radio-opt"><input type="radio" name="study_time" value="1~2시간"> 1 ~ 2시간</label>
+        <label class="radio-opt"><input type="radio" name="study_time" value="2시간 이상"> 2시간 이상</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-label">학습 강도 설정 <span style="font-weight:400;color:#888">(의지 상태, 숙제 강도 등)</span></div>
+      <textarea class="text-input" rows="3" id="q_intensity" placeholder="예) 스파르타식으로 잡아주세요! / 천천히 가고 싶어요."></textarea>
+    </div>
+    <div class="q-block" style="border:none">
+      <div class="q-label">선택사항 — 강사와 친해지기 <span style="font-weight:400;font-size:12px;color:#888">(성별, 나이, 직업 등)</span></div>
+      <textarea class="text-input" rows="2" id="q_intro" placeholder="편하게 소개해 주세요 😊 (작성 안 하셔도 됩니다)"></textarea>
+    </div>
+  </div>
+
+  <!-- SEC 1: 문법 -->
+  <div class="section-card" id="sec1">
+    <div class="section-title">Part 1 — 문법 (Grammar)</div>
+
+    <div class="q-block">
+      <div class="q-label">1. 빈칸에 알맞은 단어를 고르세요.</div>
+      <div class="q-sub">She ______ to the gym every morning.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="g1a" value="go"> go</label>
+        <label class="radio-opt"><input type="radio" name="g1a" value="goes"> goes</label>
+        <label class="radio-opt"><input type="radio" name="g1a" value="going"> going</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">If I ______ you, I would take the job.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="g1b" value="was"> was</label>
+        <label class="radio-opt"><input type="radio" name="g1b" value="were"> were</label>
+        <label class="radio-opt"><input type="radio" name="g1b" value="am"> am</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">They ______ never been to Paris before.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="g1c" value="has"> has</label>
+        <label class="radio-opt"><input type="radio" name="g1c" value="have"> have</label>
+        <label class="radio-opt"><input type="radio" name="g1c" value="having"> having</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-label">2. 수의 일치 — 알맞은 것을 고르세요.</div>
+      <div class="q-sub">Either my parents or my sister ______ coming to the party.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="g2a" value="is"> is</label>
+        <label class="radio-opt"><input type="radio" name="g2a" value="are"> are</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">Everyone ______ that he is a great musician.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="g2b" value="know"> know</label>
+        <label class="radio-opt"><input type="radio" name="g2b" value="knows"> knows</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-label">3. to 부정사 — 알맞은 것을 고르세요.</div>
+      <div class="q-sub">I want ______ how to cook Italian food.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="g3a" value="to learn"> to learn</label>
+        <label class="radio-opt"><input type="radio" name="g3a" value="learning"> learning</label>
+        <label class="radio-opt"><input type="radio" name="g3a" value="learn"> learn</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">He decided ______ abroad for further studies.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="g3b" value="to go"> to go</label>
+        <label class="radio-opt"><input type="radio" name="g3b" value="going"> going</label>
+        <label class="radio-opt"><input type="radio" name="g3b" value="go"> go</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-label">4. 문장 형식 — 몇 형식인지 고르세요.</div>
+      <div class="q-sub">I bought a new laptop.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="g4a" value="1형식"> 1형식</label>
+        <label class="radio-opt"><input type="radio" name="g4a" value="2형식"> 2형식</label>
+        <label class="radio-opt"><input type="radio" name="g4a" value="3형식"> 3형식</label>
+        <label class="radio-opt"><input type="radio" name="g4a" value="4형식"> 4형식</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">They gave me a wonderful gift.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="g4b" value="1형식"> 1형식</label>
+        <label class="radio-opt"><input type="radio" name="g4b" value="3형식"> 3형식</label>
+        <label class="radio-opt"><input type="radio" name="g4b" value="4형식"> 4형식</label>
+        <label class="radio-opt"><input type="radio" name="g4b" value="5형식"> 5형식</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">She looks happy today.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="g4c" value="1형식"> 1형식</label>
+        <label class="radio-opt"><input type="radio" name="g4c" value="2형식"> 2형식</label>
+        <label class="radio-opt"><input type="radio" name="g4c" value="3형식"> 3형식</label>
+        <label class="radio-opt"><input type="radio" name="g4c" value="5형식"> 5형식</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">We consider him a great leader.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="g4d" value="3형식"> 3형식</label>
+        <label class="radio-opt"><input type="radio" name="g4d" value="4형식"> 4형식</label>
+        <label class="radio-opt"><input type="radio" name="g4d" value="5형식"> 5형식</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-label">5. 문장 변환 — 빈칸을 채우세요.</div>
+      <div class="q-sub">He gave a book to me. → (4형식으로)</div>
+      <input class="text-input" type="text" id="g5a" placeholder="He gave me ...">
+      <div class="q-sub" style="margin-top:12px">She told me a story. → (3형식으로)</div>
+      <input class="text-input" type="text" id="g5b" placeholder="She told a story ...">
+      <div class="q-sub" style="margin-top:12px">We elected him the president. → (3형식으로)</div>
+      <input class="text-input" type="text" id="g5c" placeholder="We elected ...">
+    </div>
+    <div class="q-block">
+      <div class="q-label">6. 틀린 부분을 고쳐 쓰세요.</div>
+      <div class="q-sub">He don't like coffee.</div>
+      <input class="text-input" type="text" id="g6a" placeholder="고친 문장을 입력하세요">
+      <div class="q-sub" style="margin-top:10px">She is more smarter than her brother.</div>
+      <input class="text-input" type="text" id="g6b" placeholder="고친 문장을 입력하세요">
+      <div class="q-sub" style="margin-top:10px">I heard him sings a beautiful song yesterday.</div>
+      <input class="text-input" type="text" id="g6c" placeholder="고친 문장을 입력하세요">
+    </div>
+  </div>
+
+  <!-- SEC 2: 어휘 -->
+  <div class="section-card" id="sec2">
+    <div class="section-title">Part 2 — 어휘 (Vocabulary)</div>
+
+    <div class="q-block">
+      <div class="q-label">1. 알맞은 단어를 고르세요.</div>
+      <div class="q-sub">Please ______ the form before submitting it.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="v1a" value="complete"> complete</label>
+        <label class="radio-opt"><input type="radio" name="v1a" value="fill"> fill</label>
+        <label class="radio-opt"><input type="radio" name="v1a" value="put"> put</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">The movie was so ______ that I almost fell asleep.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="v1b" value="boring"> boring</label>
+        <label class="radio-opt"><input type="radio" name="v1b" value="exciting"> exciting</label>
+        <label class="radio-opt"><input type="radio" name="v1b" value="delicious"> delicious</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">Don't forget to ______ me when you arrive.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="v1c" value="call"> call</label>
+        <label class="radio-opt"><input type="radio" name="v1c" value="contact"> contact</label>
+        <label class="radio-opt"><input type="radio" name="v1c" value="reach"> reach</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-label">2. 회화 표현 — 알맞은 것을 고르세요.</div>
+      <div class="q-sub">I'm looking forward to ______ you tomorrow.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="v2a" value="meet"> meet</label>
+        <label class="radio-opt"><input type="radio" name="v2a" value="meeting"> meeting</label>
+        <label class="radio-opt"><input type="radio" name="v2a" value="to meet"> to meet</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">Do you ______ if I borrow your pen for a second?</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="v2b" value="mind"> mind</label>
+        <label class="radio-opt"><input type="radio" name="v2b" value="know"> know</label>
+        <label class="radio-opt"><input type="radio" name="v2b" value="remember"> remember</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-label">3. 틀린 부분을 찾아 고쳐 쓰세요.</div>
+      <div class="q-sub">She always make me laugh with her jokes.</div>
+      <input class="text-input" type="text" id="v3a" placeholder="고친 문장을 입력하세요">
+      <div class="q-sub" style="margin-top:10px">The restaurant is very expensiver than I expected.</div>
+      <input class="text-input" type="text" id="v3b" placeholder="고친 문장을 입력하세요">
+      <div class="q-sub" style="margin-top:10px">I don't know where is the nearest supermarket.</div>
+      <input class="text-input" type="text" id="v3c" placeholder="고친 문장을 입력하세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">4. 한 → 영 번역</div>
+      <div class="q-sub">오늘 날씨가 정말 좋네요.</div>
+      <input class="text-input" type="text" id="v4a" placeholder="영어로 써주세요">
+      <div class="q-sub" style="margin-top:10px">이 근처에 좋은 카페를 추천해 주시겠어요?</div>
+      <input class="text-input" type="text" id="v4b" placeholder="영어로 써주세요">
+      <div class="q-sub" style="margin-top:10px">저는 매운 음식을 잘 먹지 못해요.</div>
+      <input class="text-input" type="text" id="v4c" placeholder="영어로 써주세요">
+      <div class="q-sub" style="margin-top:10px">지금 가야 할 시간이 되었어요.</div>
+      <input class="text-input" type="text" id="v4d" placeholder="영어로 써주세요">
+    </div>
+  </div>
+
+  <!-- SEC 3: 독해 -->
+  <div class="section-card" id="sec3">
+    <div class="section-title">Part 3 — 독해 (Reading)</div>
+
+    <div class="q-block">
+      <div class="q-label">1. 다음 글을 읽고 질문에 답하세요.</div>
+      <div class="passage-box">Tom enjoys cooking during his free time. He often tries new recipes from different countries. Last week, he made sushi for the first time and shared it with his friends. They all loved it and asked him to cook it again.</div>
+      <div class="q-sub">What does Tom like to do in his free time?</div>
+      <input class="text-input" type="text" id="r1a" placeholder="영어 또는 한국어로 답하세요">
+      <div class="q-sub" style="margin-top:10px">What did Tom cook last week?</div>
+      <input class="text-input" type="text" id="r1b" placeholder="영어 또는 한국어로 답하세요">
+      <div class="q-sub" style="margin-top:10px">How did Tom's friends react to the sushi?</div>
+      <input class="text-input" type="text" id="r1c" placeholder="영어 또는 한국어로 답하세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">2. 빈칸을 채우세요.</div>
+      <div class="passage-box">Jenny loves reading books. Her favorite genres are mystery and fantasy. Every month, she visits the library to borrow new books. Yesterday, she found a book called "The Lost Island," which she started reading immediately.</div>
+      <div class="fill-row">Jenny's favorite genres are <input class="fill-input" id="r2a" placeholder="장르1"> and <input class="fill-input" id="r2b" placeholder="장르2">.</div>
+      <div class="fill-row">Jenny visits the library every <input class="fill-input" id="r2c" placeholder="빈도">.</div>
+      <div class="fill-row">The book she found is titled "<input class="fill-input" id="r2d" style="width:160px" placeholder="제목">".</div>
+    </div>
+    <div class="q-block">
+      <div class="q-label">3. 광고를 읽고 답하세요.</div>
+      <div class="passage-box">Looking for fresh fruits and vegetables? Visit Green Market, where everything is organic and locally sourced. Open daily from 8 AM to 8 PM. Find us at 123 Main Street!</div>
+      <div class="q-sub">What does Green Market sell?</div>
+      <input class="text-input" type="text" id="r3a" placeholder="답을 입력하세요">
+      <div class="q-sub" style="margin-top:10px">What time does Green Market close?</div>
+      <input class="text-input" type="text" id="r3b" placeholder="답을 입력하세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">4. 중급 독해</div>
+      <div class="passage-box">James works as a software engineer in a large company. He starts his day at 9 AM and usually finishes work by 6 PM. Although his job is challenging, he enjoys solving problems and learning new things. On weekends, he spends time with his family or plays video games to relax.</div>
+      <div class="q-sub">What is James's job?</div>
+      <input class="text-input" type="text" id="r4a" placeholder="답을 입력하세요">
+      <div class="q-sub" style="margin-top:10px">What does James do to relax on weekends?</div>
+      <input class="text-input" type="text" id="r4b" placeholder="답을 입력하세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">5. 가장 적절한 제목을 고르세요.</div>
+      <div class="passage-box">Animals play an important role in maintaining the balance of ecosystems. For example, bees help pollinate plants, and birds control insect populations. Without these animals, many ecosystems would not function properly.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="r5" value="a) The Importance of Bees"> a) The Importance of Bees</label>
+        <label class="radio-opt"><input type="radio" name="r5" value="b) How Animals Contribute to Ecosystems"> b) How Animals Contribute to Ecosystems</label>
+        <label class="radio-opt"><input type="radio" name="r5" value="c) Protecting Plants from Insects"> c) Protecting Plants from Insects</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEC 4: 작문 -->
+  <div class="section-card" id="sec4">
+    <div class="section-title">Part 4 — 작문 (Writing)</div>
+
+    <div class="q-block">
+      <div class="q-label">1. 주어진 주제로 50~100단어 영어 작문</div>
+      <div class="q-sub">Topic: Describe your favorite hobby and why you enjoy it.</div>
+      <textarea class="text-input" rows="6" id="w1" placeholder="자유롭게 써주세요. 생각나는 대로 쓰시면 됩니다 😊"></textarea>
+    </div>
+    <div class="q-block">
+      <div class="q-label">2. 문장을 완성하세요.</div>
+      <div style="font-size:13px;color:#333;line-height:2">
+        If I could travel anywhere, I would go to
+        <input class="fill-input" id="w2" style="width:240px" placeholder="여행지와 이유를 자유롭게">
+      </div>
+    </div>
+    <div class="q-block" style="border:none">
+      <div class="q-label">3. 자기소개 한 문단 <span style="font-weight:400;color:#888">(선택)</span></div>
+      <div class="q-sub">영어로 자신을 소개해 보세요. 간단해도 좋아요!</div>
+      <textarea class="text-input" rows="4" id="w3" placeholder="My name is... / I am... / I like... 등 편하게 쓰세요 😊"></textarea>
+    </div>
+  </div>
+
+  <div id="errorMsg" class="error-msg">모든 필수 항목을 작성해 주세요.</div>
+
+  <div class="nav-row" id="navRow">
+    <button class="btn" id="btnPrev" onclick="navigate(-1)" disabled>← 이전</button>
+    <button class="btn btn-primary" id="btnNext" onclick="navigate(1)">다음 →</button>
+  </div>
+</div>
+
+<!-- SUBMIT OVERLAY -->
+<div class="submit-overlay" id="submitOverlay">
+  <div class="submit-box">
+    <div class="submit-icon">✅</div>
+    <h2>제출 완료!</h2>
+    <p>레벨테스트 답변이 강사에게 전달됐어요.<br>작성해 주신 연락처로 <strong>맞춤 분석 리포트</strong>를 보내드릴게요 😊</p>
+    <button class="btn btn-primary" onclick="document.getElementById('submitOverlay').classList.remove('visible')">확인</button>
+  </div>
+</div>
+
+<script>
+const FORM_ACTION = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeqgf-vSyI4PNJwUA-Jd7leD3bOTR254S6yEnMslNCwyLcyvg/formResponse";
+const ENTRY = {
+  name:      "entry.1759786508",
+  contact:   "entry.174733891",
+  purpose:   "entry.1603149426",
+  goal:      "entry.736934506",
+  time:      "entry.1754924951",
+  intensity: "entry.707698496",
+  intro:     "entry.1580141775",
+  grammar:   "entry.607309988",
+  vocab:     "entry.1852514679",
+  reading:   "entry.354373209",
+  writing:   "entry.47652853"
+};
+
+let current = 0;
+const total = 5;
+
+function v(id) {
+  const el = document.getElementById(id);
+  return el ? (el.value.trim() || '(미작성)') : '(미작성)';
+}
+function r(name) {
+  const c = document.querySelector('input[name="' + name + '"]:checked');
+  return c ? c.value : '(미선택)';
+}
+
+function collectAll() {
+  const grammar = [
+    "▶ 빈칸 채우기",
+    "1-1. She __ gym: " + r('g1a'),
+    "1-2. If I __ you: " + r('g1b'),
+    "1-3. They __ never: " + r('g1c'),
+    "▶ 수의 일치",
+    "2-1. sister __ coming: " + r('g2a'),
+    "2-2. Everyone __ that: " + r('g2b'),
+    "▶ to부정사",
+    "3-1. I want __: " + r('g3a'),
+    "3-2. He decided __: " + r('g3b'),
+    "▶ 문장 형식",
+    "4-1. I bought laptop: " + r('g4a'),
+    "4-2. They gave me gift: " + r('g4b'),
+    "4-3. She looks happy: " + r('g4c'),
+    "4-4. We consider him: " + r('g4d'),
+    "▶ 문장 변환",
+    "5-1. gave a book → 4형식: " + v('g5a'),
+    "5-2. told me a story → 3형식: " + v('g5b'),
+    "5-3. elected him president → 3형식: " + v('g5c'),
+    "▶ 오류 교정",
+    "6-1. don't → : " + v('g6a'),
+    "6-2. more smarter → : " + v('g6b'),
+    "6-3. sings → : " + v('g6c')
+  ].join('\n');
+
+  const vocab = [
+    "▶ 단어 선택",
+    "1-1. __ the form: " + r('v1a'),
+    "1-2. so __ fell asleep: " + r('v1b'),
+    "1-3. __ me when arrive: " + r('v1c'),
+    "▶ 회화 표현",
+    "2-1. looking forward to __ you: " + r('v2a'),
+    "2-2. do you __ if I borrow: " + r('v2b'),
+    "▶ 오류 교정",
+    "3-1. always make: " + v('v3a'),
+    "3-2. expensiver: " + v('v3b'),
+    "3-3. where is: " + v('v3c'),
+    "▶ 한→영 번역",
+    "4-1. 오늘 날씨: " + v('v4a'),
+    "4-2. 카페 추천: " + v('v4b'),
+    "4-3. 매운 음식: " + v('v4c'),
+    "4-4. 가야 할 시간: " + v('v4d')
+  ].join('\n');
+
+  const reading = [
+    "▶ Tom 독해",
+    "취미: " + v('r1a'),
+    "요리한 것: " + v('r1b'),
+    "친구 반응: " + v('r1c'),
+    "▶ Jenny 빈칸",
+    "장르1/2: " + v('r2a') + " / " + v('r2b'),
+    "방문 빈도: " + v('r2c'),
+    "책 제목: " + v('r2d'),
+    "▶ 광고",
+    "무엇을 파나: " + v('r3a'),
+    "마감 시간: " + v('r3b'),
+    "▶ James 독해",
+    "직업: " + v('r4a'),
+    "주말 활동: " + v('r4b'),
+    "▶ 제목 고르기: " + r('r5')
+  ].join('\n');
+
+  const writing = [
+    "▶ 취미 작문 (50-100단어)",
+    v('w1'),
+    "▶ If I could travel...",
+    v('w2'),
+    "▶ 자기소개 (선택)",
+    v('w3')
+  ].join('\n');
+
+  return { grammar, vocab, reading, writing };
+}
+
+function contactValue() {
+  return r('contact_type') + ': ' + document.getElementById('q_contact').value.trim();
+}
+
+function submitToGoogle() {
+  const d = collectAll();
+  const params = new URLSearchParams();
+  const nameVal = document.getElementById('q_name').value.trim();
+
+  // 구글폼에 전용 질문이 준비돼 있으면 별도 칸으로, 아니면 '소개' 칸 위에 함께 보냄
+  const hasContactEntry = !ENTRY.name.includes('_ID') && !ENTRY.contact.includes('_ID');
+  let introVal = v('q_intro');
+  if (hasContactEntry) {
+    params.append(ENTRY.name,    nameVal);
+    params.append(ENTRY.contact, contactValue());
+  } else {
+    introVal = '[이름] ' + nameVal + '\n[연락처] ' + contactValue() + '\n\n' + introVal;
+  }
+
+  params.append(ENTRY.purpose,   v('q_purpose'));
+  params.append(ENTRY.goal,      v('q_goal'));
+  params.append(ENTRY.time,      r('study_time') || '(미선택)');
+  params.append(ENTRY.intensity, v('q_intensity'));
+  params.append(ENTRY.intro,     introVal);
+  params.append(ENTRY.grammar,   d.grammar);
+  params.append(ENTRY.vocab,     d.vocab);
+  params.append(ENTRY.reading,   d.reading);
+  params.append(ENTRY.writing,   d.writing);
+
+  // CORS 우회: hidden iframe으로 제출
+  const iframe = document.createElement('iframe');
+  iframe.name = 'hidden_iframe';
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = FORM_ACTION;
+  form.target = 'hidden_iframe';
+
+  params.forEach((val, key) => {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = val;
+    form.appendChild(input);
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+
+  setTimeout(() => {
+    document.body.removeChild(form);
+    document.body.removeChild(iframe);
+  }, 3000);
+
+  document.getElementById('submitOverlay').classList.add('visible');
+}
+
+// 이름·연락처 확인 (기본 정보 섹션을 벗어나거나 제출할 때)
+function validateContact() {
+  const nameEl = document.getElementById('q_name');
+  const contactEl = document.getElementById('q_contact');
+  const errEl = document.getElementById('errorMsg');
+  const type = r('contact_type');
+  const val = contactEl.value.trim();
+
+  nameEl.classList.remove('input-error');
+  contactEl.classList.remove('input-error');
+
+  if (!nameEl.value.trim()) {
+    errEl.textContent = '이름을 입력해 주세요.';
+    errEl.classList.add('visible');
+    nameEl.classList.add('input-error');
+    nameEl.focus();
+    return false;
+  }
+  if (!val) {
+    errEl.textContent = '결과 리포트를 받으실 ' + (type === '이메일' ? '이메일을' : '전화번호를') + ' 입력해 주세요.';
+    errEl.classList.add('visible');
+    contactEl.classList.add('input-error');
+    contactEl.focus();
+    return false;
+  }
+  const ok = type === '이메일'
+    ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)
+    : /^[0-9\-+\s()]{9,}$/.test(val);
+  if (!ok) {
+    errEl.textContent = type === '이메일'
+      ? '이메일 형식을 다시 확인해 주세요. (예: example@email.com)'
+      : '전화번호 형식을 다시 확인해 주세요. (예: 010-1234-5678)';
+    errEl.classList.add('visible');
+    contactEl.classList.add('input-error');
+    contactEl.focus();
+    return false;
+  }
+  errEl.classList.remove('visible');
+  return true;
+}
+
+function navigate(dir) {
+  document.getElementById('errorMsg').classList.remove('visible');
+  const sections = document.querySelectorAll('.section-card');
+  const tabs = document.querySelectorAll('.section-tab');
+
+  // 기본 정보에서 앞으로 나갈 때 + 최종 제출할 때 확인
+  if (dir === 1 && (current === 0 || current === total - 1)) {
+    if (!validateContact()) {
+      if (current !== 0) goToSection(0);
+      return;
+    }
+  }
+
+  if (dir === 1 && current === total - 1) {
+    submitToGoogle();
+    return;
+  }
+
+  sections[current].classList.remove('visible');
+  tabs[current].classList.remove('active');
+  tabs[current].classList.add('done');
+
+  current += dir;
+  if (current < 0) current = 0;
+
+  sections[current].classList.add('visible');
+  tabs[current].classList.add('active');
+  tabs[current].classList.remove('done');
+
+  document.getElementById('btnPrev').disabled = current === 0;
+  document.getElementById('btnNext').textContent = current === total - 1 ? '제출하기 ✓' : '다음 →';
+  const pct = Math.round((current + 1) / total * 100);
+  document.getElementById('progressLabel').textContent = (current + 1) + ' / ' + total + ' 섹션';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressBar').style.width = pct + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToSection(idx) {
+  const sections = document.querySelectorAll('.section-card');
+  const tabs = document.querySelectorAll('.section-tab');
+  sections[current].classList.remove('visible');
+  tabs[current].classList.remove('active');
+  current = idx;
+  sections[current].classList.add('visible');
+  tabs[current].classList.add('active');
+  document.getElementById('btnPrev').disabled = current === 0;
+  document.getElementById('btnNext').textContent = current === total - 1 ? '제출하기 ✓' : '다음 →';
+  const pct = Math.round((current + 1) / total * 100);
+  document.getElementById('progressLabel').textContent = (current + 1) + ' / ' + total + ' 섹션';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressBar').style.width = pct + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.querySelectorAll('.section-tab').forEach((tab, idx) => {
+  tab.addEventListener('click', () => goToSection(idx));
+});
+
+// 연락받을 방법에 따라 입력칸 바꾸기
+document.querySelectorAll('input[name="contact_type"]').forEach(el => {
+  el.addEventListener('change', () => {
+    const input = document.getElementById('q_contact');
+    const isEmail = el.value === '이메일';
+    input.type = isEmail ? 'email' : 'tel';
+    input.inputMode = isEmail ? 'email' : 'tel';
+    input.placeholder = isEmail ? 'example@email.com' : '010-1234-5678';
+    input.autocomplete = isEmail ? 'email' : 'tel';
+    input.value = '';
+    input.classList.remove('input-error');
+    document.getElementById('errorMsg').classList.remove('visible');
+  });
+});
+
+// 처음부터 선택돼 있는 항목 표시
+document.querySelectorAll('.radio-opt input:checked').forEach(el => {
+  el.closest('.radio-opt').classList.add('selected');
+});
+
+document.querySelectorAll('.radio-opt').forEach(opt => {
+  opt.addEventListener('click', function() {
+    const name = this.querySelector('input').name;
+    document.querySelectorAll('input[name="' + name + '"]').forEach(r => {
+      r.closest('.radio-opt').classList.remove('selected');
+    });
+    this.classList.add('selected');
+  });
+});
+</script>
+</body>
+</html>

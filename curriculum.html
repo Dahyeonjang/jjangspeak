@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>짱스픽 3개월 커리큘럼 안내</title>
+<style>
+  :root {
+    --teal:      #0B7285;
+    --teal-deep: #075063;
+    --teal-soft: #EAF6F8;
+    --teal-line: #CBE5EA;
+    --amber:     #B26A00;
+    --amber-soft:#FFF6E8;
+    --amber-line:#F0DDBD;
+    --ink:       #1F2933;
+    --muted:     #6E7B85;
+    --line:      #E4E8EB;
+    --paper:     #FFFFFF;
+    --bg:        #F5F7F8;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 28px 16px 56px;
+    background: var(--bg);
+    font-family: 'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo', -apple-system, sans-serif;
+    color: var(--ink);
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 760px;
+    margin: 0 auto 26px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 40px 44px 44px;
+    box-shadow: 0 1px 3px rgba(16,32,40,.05);
+  }
+
+  /* ── 히어로 ───────────────────────────────── */
+  .eyebrow {
+    font-size: 12.5px;
+    letter-spacing: .14em;
+    color: var(--teal);
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-size: 30px;
+    line-height: 1.36;
+    color: var(--teal-deep);
+    margin: 0 0 12px;
+    letter-spacing: -.02em;
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .rule { height: 1px; background: var(--line); margin: 26px 0; border: 0; }
+
+  /* ── 솔직히 말씀드릴게요 ────────────────────── */
+  .honest {
+    background: var(--amber-soft);
+    border: 1px solid var(--amber-line);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 28px 0 34px;
+  }
+  .honest-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    color: var(--amber);
+    margin-bottom: 6px;
+  }
+  .honest p { margin: 0; font-size: 16.5px; font-weight: 700; line-height: 1.6; }
+  .honest p + p { margin-top: 6px; font-weight: 400; font-size: 15px; color: #6B5836; }
+  .honest.gray { background: #F3F5F6; border-color: var(--line); }
+  .honest.gray .honest-tag { color: var(--muted); }
+  .honest.gray p + p { color: #5B6770; }
+
+  /* ── 번호 카드 ─────────────────────────────── */
+  .card {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+  }
+  .card:first-of-type { border-top: 0; padding-top: 4px; }
+
+  .num {
+    flex: 0 0 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--teal-soft);
+    color: var(--teal);
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3px;
+  }
+  .card-body { flex: 1; min-width: 0; }
+  .card h3 {
+    margin: 0 0 6px;
+    font-size: 17px;
+    color: var(--ink);
+    letter-spacing: -.01em;
+  }
+  .card p { margin: 0; font-size: 15px; color: #46525C; }
+  .card p + p { margin-top: 4px; }
+
+  /* 배우는 규칙 표 */
+  .rules {
+    border: 1px solid var(--teal-line);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 12px 0 12px;
+  }
+  .rules-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--teal);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+  .rules-head span { padding: 6px 14px; }
+  .rules-head span + span { border-left: 1px solid rgba(255,255,255,.28); }
+
+  .rrow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid #E6F1F3;
+  }
+  .rrow .r {
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+  }
+  .rrow .a { padding: 9px 14px; border-left: 1px solid #E6F1F3; }
+  .rrow .a b { display: block; color: var(--teal); font-size: 14.5px; line-height: 1.45; }
+  .rrow .a i { display: block; font-style: normal; color: var(--muted); font-size: 13px; margin-top: 1px; }
+
+  .rules-more {
+    background: #FAFCFC;
+    border-top: 1px solid #E6F1F3;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .notlearn {
+    background: #F5F6F7;
+    border-radius: 9px;
+    padding: 11px 15px;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 0 0 10px !important;
+    line-height: 1.6;
+  }
+  .notlearn b { color: #8A939B; font-weight: 700; }
+  .quote {
+    display: inline-block;
+    background: #F3F5F6;
+    border-radius: 7px;
+    padding: 4px 11px;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 15px;
+  }
+  .flow-ko {
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+  /* ── 비교 블록 ─────────────────────────────── */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 30px 0 0;
+  }
+  .col {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    background: #FAFBFB;
+  }
+  .col.alt { background: var(--teal-soft); border-color: var(--teal-line); }
+  .col h4 {
+    margin: 0 0 8px;
+    font-size: 13px;
+    letter-spacing: .04em;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .col.alt h4 { color: var(--teal); }
+  .col p { margin: 0; font-size: 14.5px; color: #46525C; line-height: 1.66; }
+  .col.alt p { color: var(--teal-deep); font-weight: 600; }
+
+  .aside {
+    text-align: center;
+    font-size: 14.5px;
+    color: var(--muted);
+    margin: 14px 0 0;
+    font-style: italic;
+  }
+
+  /* ── 착지 ─────────────────────────────────── */
+  .landing {
+    margin: 34px 0 0;
+    background: linear-gradient(135deg, var(--teal-deep), var(--teal));
+    color: #fff;
+    border-radius: 14px;
+    padding: 30px 32px;
+    text-align: center;
+  }
+  .landing .big {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin: 0 0 10px;
+    letter-spacing: -.01em;
+  }
+  .landing .small {
+    font-size: 15px;
+    margin: 0;
+    color: #CFEAF0;
+  }
+
+  /* ── 2장: 섹션 헤더 ─────────────────────────── */
+  .sec {
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    margin: 0 0 6px;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--teal-deep);
+    letter-spacing: -.01em;
+  }
+  .sec .ic { font-size: 18px; }
+  .sec-note { margin: 0 0 20px; font-size: 14.5px; color: var(--muted); }
+
+  .goal {
+    background: linear-gradient(135deg, var(--teal-deep), var(--teal));
+    color: #fff;
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin: 0 0 34px;
+  }
+  .goal .lab { font-size: 12px; letter-spacing: .14em; color: #A9DCE6; font-weight: 700; margin: 0 0 7px; }
+  .goal .big { font-size: 20px; font-weight: 700; margin: 0 0 7px; line-height: 1.45; }
+  .goal .small { font-size: 14.5px; margin: 0; color: #CFEAF0; }
+
+  /* ── 학습 블록 ─────────────────────────────── */
+  .block {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+  }
+  .block-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .badge {
+    flex: 0 0 auto;
+    background: var(--teal);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 3px 11px;
+    border-radius: 999px;
+  }
+  .block-head .t { font-size: 16px; font-weight: 700; color: var(--ink); }
+  .block-head .s { font-size: 13.5px; color: var(--muted); font-weight: 400; }
+
+  .ex { padding: 7px 0; border-top: 1px dashed #EDF1F2; }
+  .ex:first-of-type { border-top: 0; padding-top: 0; }
+  .ex .en { display: block; font-size: 15px; font-weight: 700; color: var(--teal); line-height: 1.5; }
+  .ex .ko { display: block; font-size: 14px; color: var(--muted); margin-top: 1px; }
+
+  .extra {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    background: #FAFBFB;
+    border: 1px dashed var(--line);
+    border-radius: 12px;
+    padding: 14px 20px;
+    margin-bottom: 34px;
+  }
+  .extra b { color: var(--ink); font-size: 15px; white-space: nowrap; }
+  .extra span { font-size: 14.5px; color: var(--muted); }
+
+  /* ── 문장이 자라는 계단 ─────────────────────── */
+  .grow { margin: 0 0 34px; }
+  .step {
+    position: relative;
+    padding: 9px 0 9px 18px;
+    border-left: 3px solid var(--teal-line);
+  }
+  .step:nth-child(1) { border-left-color: #DCEDF0; }
+  .step:nth-child(2) { border-left-color: #B9DDE4; }
+  .step:nth-child(3) { border-left-color: #86C5D2; }
+  .step:nth-child(4) { border-left-color: #3F9DAF; }
+  .step:nth-child(5) { border-left-color: var(--teal); }
+  .step .en { display: block; font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.5; }
+  .step .ko { display: block; font-size: 14px; color: var(--muted); margin-top: 1px; }
+  .step:last-child .en { color: var(--teal-deep); }
+
+  /* ── 한 주 루틴 ────────────────────────────── */
+  .week { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 26px; }
+  .wk {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px;
+    background: #FAFBFB;
+  }
+  .wk .n {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .wk h4 { margin: 0 0 3px; font-size: 15.5px; color: var(--ink); }
+  .wk .when { font-size: 12.5px; color: var(--teal); font-weight: 700; }
+  .wk p { margin: 5px 0 0; font-size: 14px; color: #46525C; line-height: 1.6; }
+  .wk .note {
+    display: block;
+    margin-top: 9px;
+    padding-top: 8px;
+    border-top: 1px dashed #DDE3E6;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .wk .note b { color: var(--teal); font-weight: 700; }
+
+  .closing {
+    text-align: center;
+    border-top: 1px solid var(--line);
+    padding-top: 22px;
+  }
+  .closing .l1 { font-size: 17px; font-weight: 700; color: var(--teal-deep); margin: 0 0 5px; }
+  .closing .l2 { font-size: 14.5px; color: var(--muted); margin: 0; }
+
+  /* ── 3장: 기본 정보 바 ─────────────────────── */
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 0 0 26px;
+  }
+  .f { background: var(--paper); padding: 13px 16px; }
+  .f .k { font-size: 11.5px; color: var(--muted); letter-spacing: .04em; margin-bottom: 2px; }
+  .f .v { font-size: 15px; font-weight: 700; color: var(--teal-deep); }
+  .f .v small { display: block; font-size: 12.5px; font-weight: 400; color: var(--muted); margin-top: 1px; }
+
+  /* ── 3장: 문답 카드 ────────────────────────── */
+  .qa {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background: var(--paper);
+  }
+  .qa .q {
+    background: var(--teal-soft);
+    border-bottom: 1px solid var(--teal-line);
+    padding: 13px 20px;
+    margin: 0;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--teal-deep);
+    line-height: 1.55;
+  }
+  .qa .a { padding: 16px 20px 18px; font-size: 14.5px; color: #46525C; line-height: 1.8; }
+  .qa .a p { margin: 0; }
+  .qa .a p + p { margin-top: 11px; }
+  .qa .a b { color: var(--ink); font-weight: 700; }
+  .qa .a ul { margin: 0 0 11px; padding-left: 18px; }
+  .qa .a li { margin: 2px 0; }
+  .qa .a .lead { color: var(--teal-deep); font-weight: 700; font-size: 15px; }
+
+  .btn-line {
+    display: inline-block;
+    margin-top: 12px;
+    background: var(--teal);
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 9px 18px;
+    border-radius: 8px;
+  }
+
+  .contact {
+    margin: 26px 0 0;
+    background: var(--amber-soft);
+    border: 1px solid var(--amber-line);
+    border-radius: 12px;
+    padding: 18px 22px;
+    font-size: 14.5px;
+    color: #6B5836;
+    line-height: 1.75;
+  }
+  .contact b { color: var(--amber); font-weight: 700; }
+  .contact p { margin: 0; }
+  .contact p + p { margin-top: 5px; }
+
+  /* ── 모바일 ───────────────────────────────── */
+  @media (max-width: 620px) {
+    body { padding: 16px 12px 40px; }
+    .sheet { padding: 28px 22px 32px; border-radius: 12px; }
+    h1 { font-size: 24px; }
+    .compare, .week { grid-template-columns: 1fr; }
+    .rules-head { display: none; }
+    .rrow { grid-template-columns: 1fr; }
+    .rrow .r { padding: 8px 13px; font-size: 13.5px; }
+    .rrow .a { border-left: 0; padding: 8px 13px 10px; }
+    .card { gap: 13px; }
+    .landing { padding: 24px 20px; }
+    .landing .big { font-size: 18px; }
+    .goal .big { font-size: 17.5px; }
+    .qa .q { font-size: 14.5px; padding: 12px 16px; }
+    .qa .a { padding: 14px 16px 16px; font-size: 14px; }
+  }
+
+  /* ── 인쇄: 2페이지 ─────────────────────────── */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .sheet {
+      border: 0; box-shadow: none; border-radius: 0;
+      margin: 0; padding: 0 0 0;
+      max-width: 100%;
+      page-break-after: always;
+    }
+    .sheet:last-child { page-break-after: auto; }
+    .landing, .goal { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ 1장 · 왜 문법인가 ══════════════ -->
+<section class="sheet">
+
+  <p class="eyebrow">📘 짱스픽 3개월 커리큘럼</p>
+  <h1>최소한의 문법으로,<br>최대한의 실용</h1>
+  <p class="hero-sub">문법을 외우는 게 아니라, 하고 싶은 말을 문장으로 만드는 힘을 기릅니다.</p>
+
+  <div class="honest">
+    <span class="honest-tag">그동안 영어를 못했던 이유</span>
+    <p>단어만 알아서는 말이 나오지 않습니다.</p>
+    <p>단어를 몰라서가 아니라, 아는 단어를 문장으로 조립하는 방법을 배운 적이 없어서예요.<br>
+    짱스픽이 3개월 동안 잡아드리는 게 바로 그 조립 방법입니다.</p>
+  </div>
+
+  <div class="honest gray">
+    <p>짱스픽은 문법으로 시작하는 수업이 맞아요.</p>
+    <p>다만 학창시절에 하셨던 그 문법은 아닙니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="num">1</div>
+    <div class="card-body">
+      <h3>꼭 필요한 것만 배워요</h3>
+      <p>내가 원하는 문장을 만들 때 <b>실제로 쓰는 것</b>만 배웁니다. 이런 것들이요.</p>
+
+      <div class="rules">
+        <div class="rules-head">
+          <span>배우는 규칙</span>
+          <span>그래서 할 수 있는 말</span>
+        </div>
+
+        <div class="rrow">
+          <span class="r">영어는 주어 → 동사 → 목적어<br>순서로 간다</span>
+          <span class="a"><b>I finished my work.</b><i>저는 일을 끝냈어요.</i></span>
+        </div>
+        <div class="rrow">
+          <span class="r">3인칭 단수에는 -s를 붙인다</span>
+          <span class="a"><b>She works on weekends.</b><i>그녀는 주말에 일해요.</i></span>
+        </div>
+        <div class="rrow">
+          <span class="r">아니라고 할 땐<br>don't · doesn't를 앞에</span>
+          <span class="a"><b>I don't work on Mondays.</b><i>저는 월요일엔 일 안 해요.</i></span>
+        </div>
+        <div class="rrow">
+          <span class="r">물어볼 땐 Do를 맨 앞으로</span>
+          <span class="a"><b>Do you have time today?</b><i>오늘 시간 있어요?</i></span>
+        </div>
+        <div class="rrow">
+          <span class="r">동사 앞에 can · will · should를<br>얹으면 뜻이 바뀐다</span>
+          <span class="a"><b>I can help you.</b><i>제가 도와드릴 수 있어요.</i></span>
+        </div>
+        <div class="rrow">
+          <span class="r">동사에 to · -ing를 붙이면<br>명사가 된다</span>
+          <span class="a"><b>I want to rest.</b><i>저는 쉬고 싶어요.</i></span>
+        </div>
+
+        <div class="rules-more">이런 규칙이 12주 동안 차곡차곡 쌓입니다 — 품사·5형식 → 준동사 → 절 → 실전 문법</div>
+      </div>
+
+      <p class="notlearn"><b>✕ 안 배우는 것</b> &nbsp;문법 용어 외우기 · 예외의 예외 · 시험에만 나오는 문법</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="num">2</div>
+    <div class="card-body">
+      <h3>배운 건 그 자리에서 바로 문장으로</h3>
+      <p><span class="quote">“나 오늘 손님 다섯 명 받았어”</span></p>
+      <p style="margin-top:8px">같은, 내일 당장 쓸 문장으로요.<br>
+      문법 배우는 시간과 말하는 시간이 따로 있지 않아요.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="num">3</div>
+    <div class="card-body">
+      <h3>단어를 다 알아도<br>말이 안 나오는 이유</h3>
+      <p>여기 단어 다섯 개가 있어요. 전부 아시는 단어일 거예요.</p>
+      <p style="margin-top:8px"><span class="quote">I · coffee · drink · every · morning</span></p>
+      <p style="margin-top:10px">뜻은 다 아시죠. 그런데 이걸 <b>어떤 순서로 놓아야</b> 문장이 될까요?</p>
+      <div class="ex"><span class="en">✅ I drink coffee every morning.</span><span class="ko">저는 매일 아침 커피를 마셔요.</span></div>
+      <div class="ex"><span class="en">✗ I coffee drink morning every.</span><span class="ko">단어는 똑같은데, 말이 안 됩니다.</span></div>
+      <p style="margin-top:12px"><b>단어를 아는 것과 문장을 만드는 것은 다른 능력이에요.</b></p>
+      <p style="margin-top:6px">단어는 재료고, 문법은 그 재료를 놓을 <b>자리</b>입니다.<br>
+      재료를 아무리 많이 사도 놓을 자리를 모르면 요리가 안 나와요.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="num">4</div>
+    <div class="card-body">
+      <h3>한국어는 조사가,<br>영어는 순서가 자리를 알려줍니다</h3>
+      <p>한국어는 단어에 <b>꼬리표</b>가 붙어요. ‘는’이 붙으면 주어, ‘를’이 붙으면 목적어.<br>
+      꼬리표가 알려주니까 순서를 바꿔도 뜻이 그대로예요.</p>
+      <p style="margin-top:8px">영어에는 그 꼬리표가 없어요. 대신 <b>자리가 그 역할을 합니다.</b><br>
+      동사 앞에 있으면 주어, 동사 뒤에 있으면 목적어. 그게 전부예요.</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="col">
+      <h4>한국어 — 순서를 바꿔도 됩니다</h4>
+      <p>저는 커피를 좋아해요.<br>
+      커피를 저는 좋아해요.<br>
+      좋아해요, 저는 커피를.<br><br>
+      셋 다 같은 뜻이에요.<br>
+      ‘는’과 ‘를’이 붙어 있으니까요.</p>
+    </div>
+    <div class="col alt">
+      <h4>영어 — 순서를 바꾸면 뜻이 바뀝니다</h4>
+      <p>I like coffee.<br>저는 커피를 좋아해요.<br><br>
+      Coffee likes me.<br>커피가 저를 좋아해요.<br><br>
+      단어는 똑같아요.<br>자리만 바꿨는데 뜻이 뒤집혔습니다.</p>
+    </div>
+  </div>
+  <p class="aside">영어에서 조사 역할을 하는 건 순서예요.</p>
+
+  <div class="honest">
+    <span class="honest-tag">그래서 이런 문장이 나옵니다</span>
+    <p>“저는 어제 친구를 만났어요” → I yesterday friend met. ✗</p>
+    <p>한국어 순서 그대로 놓았기 때문이에요.<br>
+    영어 자리에 다시 꽂으면 <b>I met my friend yesterday.</b> ✅<br>
+    부족한 건 단어가 아니라 <b>조립하는 방법</b>입니다.</p>
+  </div>
+
+  <div class="compare">
+    <div class="col">
+      <h4>회화 위주로 배우면</h4>
+      <p>이미 만들어진 문장을 익히게 돼요.<br>그 상황이 오면 잘 통합니다.<br><br>그런데 하고 싶은 말이 생겼을 때,<br>그 말을 만들 방법이 없어요.</p>
+    </div>
+    <div class="col alt">
+      <h4>짱스픽은</h4>
+      <p>문장을 만드는 규칙부터 잡습니다.<br><br>규칙을 쥐고 있으면<br>처음 하는 말도 스스로 만들 수 있어요.</p>
+    </div>
+  </div>
+  <p class="aside">하고 싶은 말은, 매번 새로운 말이니까요.</p>
+
+  <div class="landing">
+    <p class="big">영어를 못하신 게 아니라<br>설계도를 배운 적이 없으셨던 거예요.</p>
+    <p class="small">저는 그 설계도를 3개월 안에 드리려고 합니다.</p>
+  </div>
+
+</section>
+
+
+<!-- ══════════════ 2장 · 커리큘럼 ══════════════ -->
+<section class="sheet">
+
+  <div class="goal">
+    <p class="lab">🎯 우리의 목표</p>
+    <p class="big">3개월 안에, 영어 문장을<br>스스로 읽고 · 쓰고 · 말하기</p>
+    <p class="small">어렵게 돌아가지 않아요. 딱 필요한 것만, 순서대로 쌓아 올립니다.</p>
+  </div>
+
+  <p class="sec"><span class="ic">🧱</span> 무엇을 배우나요</p>
+  <p class="sec-note">칸을 채우고 → 칸을 늘리고 → 칸끼리 잇습니다. 이 세 단계면 문장이 만들어져요.</p>
+
+  <div class="block">
+    <div class="block-head">
+      <span class="badge">① 기본 5형식</span>
+      <span class="t">칸을 정확히 채워요</span>
+      <span class="s">누가 · 한다 · 무엇을 — 어느 칸에 어떤 단어가 들어가는지 익히는 단계</span>
+    </div>
+    <div class="ex"><span class="en">I am a trainer.</span><span class="ko">저는 트레이너예요.</span></div>
+    <div class="ex"><span class="en">We go to the gym every day.</span><span class="ko">우리는 매일 헬스장에 가요.</span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-head">
+      <span class="badge">② 준동사</span>
+      <span class="t">한 문장에 동작을 더 넣어요</span>
+      <span class="s">동사에 to나 -ing를 붙이면 ‘하는 것’·‘할’처럼 쓸 수 있어요</span>
+    </div>
+    <div class="ex"><span class="en">I like exercising in the morning.</span><span class="ko">저는 아침에 운동하는 걸 좋아해요.</span></div>
+    <div class="ex"><span class="en">I have a lot of work to do.</span><span class="ko">저는 할 일이 많아요.</span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-head">
+      <span class="badge">③ 절</span>
+      <span class="t">문장과 문장을 이어요</span>
+      <span class="s">문장 하나를 통째로 칸 하나에 넣는 단계 — 말이 길어지는 자리예요</span>
+    </div>
+    <div class="ex">
+      <span class="en">I like watching movies at home on the weekend when I have free time because it helps me relax.</span>
+      <span class="ko">저는 시간이 날 때 주말에 집에서 영화 보는 걸 좋아하는데, 그게 긴장을 풀어주기 때문이에요.</span>
+    </div>
+    <div class="ex">
+      <span class="en">I want to train clients who need help to reach their goals.</span>
+      <span class="ko">저는 목표를 이루도록 도움이 필요한 회원들을 트레이닝하고 싶어요.</span>
+    </div>
+  </div>
+
+  <div class="extra">
+    <b>＋ 기타</b>
+    <span>실전에서 자주 쓰는 표현들로 문장을 더 매끄럽게 다듬어요.</span>
+  </div>
+
+  <p class="sec"><span class="ic">💡</span> 한 문장이 이렇게 자라요</p>
+  <p class="sec-note">규칙을 하나씩 얹을 때마다, 할 수 있는 말이 길어집니다.</p>
+
+  <div class="grow">
+    <div class="step">
+      <span class="en">I drink coffee.</span>
+      <span class="ko">저는 커피를 마셔요.</span>
+    </div>
+    <div class="step">
+      <span class="en">I want to drink coffee.</span>
+      <span class="ko">저는 커피를 마시고 싶어요.</span>
+    </div>
+    <div class="step">
+      <span class="en">I want to drink coffee when I am tired.</span>
+      <span class="ko">저는 피곤할 때 커피를 마시고 싶어요.</span>
+    </div>
+    <div class="step">
+      <span class="en">I want to drink a cup of coffee when I am tired after work.</span>
+      <span class="ko">저는 퇴근하고 피곤할 때 커피 한 잔을 마시고 싶어요.</span>
+    </div>
+    <div class="step">
+      <span class="en">I always want to drink a hot cup of coffee when I am tired after a long day at work.</span>
+      <span class="ko">저는 직장에서 긴 하루를 보내고 피곤할 때면 늘 따뜻한 커피 한 잔을 마시고 싶어요.</span>
+    </div>
+  </div>
+
+  <p class="sec"><span class="ic">🔄</span> 한 주는 이렇게 굴러갑니다</p>
+  <p class="sec-note">수업 하나로 끝나지 않아요. 한 주가 통째로 돌아갑니다.</p>
+
+  <div class="week">
+    <div class="wk">
+      <span class="n">1</span>
+      <h4>수업 <span class="when">주 1회 · 50분</span></h4>
+      <p>그날의 핵심 규칙을 쉬운 예문으로 이해하고, 그 자리에서 문장을 직접 만들어 봅니다.</p>
+      <span class="note">흐름에 따라 <b>10~20분 정도 길어질 수 있어요.</b></span>
+    </div>
+    <div class="wk">
+      <span class="n">2</span>
+      <h4>워크북 숙제 <span class="when">Day 1~7</span></h4>
+      <p>매일 조금씩, 하실 수 있는 만큼만 내드려요.</p>
+      <span class="note">속도를 더 내고 싶으시면 <b>스파르타로 요청</b>해 주세요.</span>
+    </div>
+    <div class="wk">
+      <span class="n">3</span>
+      <h4>카톡 질문</h4>
+      <p>수업 사이에 막히면 바로 물어보세요. 첨삭·채점은 제가 챙깁니다.</p>
+    </div>
+    <div class="wk">
+      <span class="n">4</span>
+      <h4>다음 수업 복습 <span class="when">시작 10분</span></h4>
+      <p>틀린 곳은 같이 보면서 확실히 잡아요.</p>
+    </div>
+  </div>
+
+  <div class="closing">
+    <p class="l1">실력이 아니라 꾸준함이 답이에요.</p>
+    <p class="l2">제가 옆에서 속도 맞춰 함께 갈게요. 시작해봅시다! 💪</p>
+  </div>
+
+</section>
+
+
+<!-- ══════════════ 3장 · 자주 하는 질문 ══════════════ -->
+<section class="sheet">
+
+  <p class="sec"><span class="ic">💬</span> 자주 하는 질문</p>
+  <p class="sec-note">상담에서 가장 많이 받은 질문들을 모아두었어요.</p>
+
+  <div class="facts">
+    <div class="f"><div class="k">수업</div><div class="v">주 1회 · 50분<small>10~20분 초과 잦음</small></div></div>
+    <div class="f"><div class="k">수강료</div><div class="v">160,000원<small>4회 · 1회 40,000원</small></div></div>
+    <div class="f"><div class="k">가능 시간</div><div class="v">10시 ~ 21시<small>한국시간 · 시작 기준</small></div></div>
+    <div class="f"><div class="k">방식</div><div class="v">온라인 1:1<small>Zoom · 구글 Meet</small></div></div>
+  </div>
+
+  <div class="qa">
+    <p class="q">수업이 어떻게 진행되나요?</p>
+    <div class="a">
+      <ul>
+        <li>주 1회 50분, 온라인 1:1 (Zoom 또는 구글 Meet)</li>
+        <li>수강료 16만원 (4회 기준)</li>
+        <li>수업자료는 구글 닥스로 공유</li>
+        <li>모르는 건 카톡으로 언제든 질문 가능</li>
+      </ul>
+      <p>수업자료는 레벨과 진도에 맞춰 그때그때 만들어 드리고, 수강생분 전용 수업 페이지와 숙제 페이지가 따로 생성됩니다.</p>
+      <p>아직 시작 전이시라면 무료 레벨테스트부터 해보세요. 지금 수준을 봐야 어디서 시작할지 정해지거든요.</p>
+      <a class="btn-line" href="https://dahyeonjang.github.io/jjangspeak/level-test.html">무료 레벨테스트 하러 가기 →</a>
+    </div>
+  </div>
+
+  <div class="qa">
+    <p class="q">문법 들어가면 흥미를 잃을 것 같아요 / 저는 회화 위주로 배웠어요</p>
+    <div class="a">
+      <p class="lead">짱스픽은 문법으로 시작하는 수업이 맞아요. 이건 숨기지 않을게요.</p>
+      <p>다만 학창시절에 하셨던 문법과는 접근이 다릅니다. 문장을 만드는 데 꼭 필요한 것만 배우고, 배운 건 그 자리에서 바로 문장으로 만듭니다. 문법 배우는 시간과 말하는 시간이 따로 있지 않아요.</p>
+      <p>회화 위주로 배우면 이미 만들어진 문장을 익히게 돼요. 그 상황이 오면 잘 통합니다. 그런데 하고 싶은 말이 생겼을 때, 그 말을 만들 방법이 없어요.</p>
+      <p><b>하고 싶은 말은 매번 새로운 말이니까요.</b></p>
+    </div>
+  </div>
+
+  <div class="qa">
+    <p class="q">진짜 3개월이면 되나요?</p>
+    <div class="a">
+      <p class="lead">두 가지를 나눠서 말씀드릴게요.</p>
+      <p>커리큘럼은 3개월 기준입니다. (학습자에 따라 6개월까지 걸리기도 해요.) 커리큘럼을 잘 따라오시면 3개월이면 <b>하고 싶은 말을 영어 문장으로 만드실 수</b> 있어요.</p>
+      <p>다만 말로 바로바로 <b>술술 나오느냐</b>, 그건 3개월 안에는 조금 어렵습니다. 문장을 만들 줄 아는 것과 그게 입에서 즉시 나오는 건 다른 근육이라서요.</p>
+      <p>두 번째 근육은 3개월 동안, 그리고 그 이후에도 얼마나 많이 쓰시느냐에 달려 있어요. 빠르게 늘리고 싶으시면 숙제를 <b>스파르타로 원하시는 만큼</b> 내 드릴 수 있습니다.</p>
+    </div>
+  </div>
+
+  <div class="qa">
+    <p class="q">전에 과외를 받다가 중간에 그만뒀어요 / 과제가 힘들었어요</p>
+    <div class="a">
+      <p>그 마음 충분히 이해해요. 그리고 그건 의지 문제가 아닐 가능성이 높아요.</p>
+      <p>매일 과제가 쌓이는 방식은 웬만해선 두 달을 넘기기 어렵거든요. 흥미를 잃으신 게 아니라, 부담이 먼저 쌓인 거예요.</p>
+      <p>저희는 숙제 분량을 원하시는 만큼 맞춰드립니다. 하루 10분만 하고 싶으시면 그렇게 드리고, 더 하고 싶으시면 더 드려요. 많이 하는 것보다 끊기지 않는 게 훨씬 중요하거든요.</p>
+      <p>그리고 이 수업은 <b>3개월 졸업</b>이 목표예요. 평생 붙잡아두는 게 아니라, 문장을 만들 수 있게 되면 원어민 선생님께 보내드리려고 합니다.</p>
+    </div>
+  </div>
+
+  <div class="qa">
+    <p class="q">수업 시간이 1시간인가요?</p>
+    <div class="a">
+      <p>기본 50분 수업인데, 보통 항상 시간이 부족해요. 넉넉히 10~20분 정도 초과된다고 생각해 주세요.</p>
+      <p>다음 일정은 여유 있게 비워두시면 좋습니다.</p>
+    </div>
+  </div>
+
+  <div class="qa">
+    <p class="q">수업 시간은 어떻게 정하나요?</p>
+    <div class="a">
+      <p>원하시는 요일과 시간을 알려주세요. <b>한국시간 기준 오전 10시 ~ 오후 9시 사이에 시작</b> 가능합니다. (해외 거주시라면 시차 계산해서 편하게 말씀해 주세요)</p>
+      <p>스케줄은 요일·시간 고정으로 잡습니다.</p>
+    </div>
+  </div>
+
+  <div class="qa">
+    <p class="q">시간 변경도 가능한가요?</p>
+    <div class="a">
+      <p>네! 1:1 과외 수업이라 당연히 가능합니다.</p>
+      <p>수업 <b>3일 전</b>에만 말씀해 주시면 최대한 맞춰드려요. 변경도 오전 10시 ~ 오후 9시 시작 범위 안에서 가능합니다.</p>
+    </div>
+  </div>
+
+  <div class="qa">
+    <p class="q">수업 자료는 따로 있나요? 과제는 어떻게 되나요?</p>
+    <div class="a">
+      <p>수업자료는 구글 닥스로 공유됩니다. 구글 아이디만 있으면 문제없이 보실 수 있어요.</p>
+      <p>자료는 레벨과 진도에 따라 다르게 만들어 드리고, 수업이 끝나면 바로 그 주차 수업자료와 숙제를 넣어드립니다. 수강생분 전용 수업 페이지와 숙제 페이지가 따로 만들어지는 방식이에요.</p>
+      <p>숙제 분량은 원하시는 만큼 맞춰드립니다. 하루 10분이 편하시면 그렇게, 더 하고 싶으시면 더 드려요. 시작할 때 여쭤보고, 하시면서 조절합니다.</p>
+    </div>
+  </div>
+
+  <div class="qa">
+    <p class="q">결제는 어떻게 하나요?</p>
+    <div class="a">
+      <p><b>4회 기준 160,000원</b>입니다. (1회 40,000원)</p>
+      <p>입금 계좌는 카톡으로 안내드릴게요. 입금이 확인되면 첫 수업 전에 수업 페이지 링크를 보내드립니다.</p>
+      <p>환불은 진행하신 회차만 차감하고 돌려드립니다.</p>
+    </div>
+  </div>
+
+  <div class="contact">
+    <p><b>더 궁금한 게 있으신가요?</b></p>
+    <p>여기 없는 질문도 카톡으로 편하게 물어보세요. 억지로 시작하면 오래 못 가니까, 아니다 싶으셔도 괜찮습니다. 편하게 생각하고 알려주세요.</p>
+  </div>
+
+</section>
+
+</body>
+</html>
