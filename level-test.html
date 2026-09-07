@@ -262,6 +262,31 @@
     .btn-primary:hover { background: #0f5c42; }
     .btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
+    /* KAKAO FAST-TRACK (Part 4 끝) */
+    .kakao-box {
+      margin-top: 28px;
+      background: #0a3d2e;
+      border-radius: 14px;
+      padding: 26px 22px;
+      text-align: center;
+    }
+    .kakao-box .kakao-title { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .kakao-box .kakao-sub { font-size: 13px; color: #9FE1CB; line-height: 1.7; margin-bottom: 18px; }
+    .kakao-box .kakao-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #FAE100; color: #3A1D00;
+      font-size: 14px; font-weight: 700;
+      padding: 13px 24px; border-radius: 10px;
+      text-decoration: none; margin-bottom: 18px;
+    }
+    .kakao-box .kakao-icon { width: 20px; height: 20px; }
+    .kakao-box .qr-wrap {
+      display: inline-block; background: #fff;
+      border-radius: 12px; padding: 12px;
+    }
+    .kakao-box .qr-wrap img { width: 120px; height: 120px; display: block; }
+    .kakao-box .qr-label { font-size: 12px; color: #5DCAA5; margin-top: 10px; }
+
     /* SUBMIT OVERLAY */
     .submit-overlay {
       display: none;
@@ -385,7 +410,7 @@
       <div class="q-label" style="font-size:13px">연락받을 방법<span class="req">*</span></div>
       <div class="radio-group row" id="rg_contact" style="margin-bottom:6px">
         <label class="radio-opt"><input type="radio" name="contact_type" value="이메일" checked> 이메일</label>
-        <label class="radio-opt"><input type="radio" name="contact_type" value="전화번호"> 전화번호</label>
+        <label class="radio-opt"><input type="radio" name="contact_type" value="전화번호"> 전화번호 (카톡)</label>
       </div>
       <input class="text-input" type="email" id="q_contact" placeholder="example@email.com" autocomplete="email" inputmode="email">
       <div class="q-note" id="contactHint">둘 중 편한 것 하나만 적어주시면 됩니다.</div>
@@ -671,6 +696,23 @@
       <div class="q-label">3. 자기소개 한 문단 <span style="font-weight:400;color:#888">(선택)</span></div>
       <div class="q-sub">영어로 자신을 소개해 보세요. 간단해도 좋아요!</div>
       <textarea class="text-input" rows="4" id="w3" placeholder="My name is... / I am... / I like... 등 편하게 쓰세요 😊"></textarea>
+    </div>
+
+    <div class="kakao-box">
+      <div class="kakao-title">레벨테스트 결과를 더 빠르게 받고 싶다면</div>
+      <div class="kakao-sub">제출 후 오픈카카오톡으로 카톡 한 통 남겨주세요.<br>확인하는 대로 바로 결과를 보내드릴게요 😊</div>
+      <a class="kakao-btn" href="https://open.kakao.com/o/s7SHmEyh" target="_blank" rel="noopener">
+        <svg class="kakao-icon" viewBox="0 0 24 24" fill="#3A1D00">
+          <path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.514 1.394 4.73 3.5 6.107L4.5 21l4.618-2.309A11.14 11.14 0 0 0 12 19c5.523 0 10-3.477 10-7.5S17.523 3 12 3z"/>
+        </svg>
+        오픈카카오톡으로 카톡하기
+      </a>
+      <div>
+        <div class="qr-wrap">
+          <img src="qr.jpg" alt="카카오톡 오픈채팅 QR코드">
+        </div>
+        <div class="qr-label">QR코드로 바로 입장하기</div>
+      </div>
     </div>
   </div>
 
