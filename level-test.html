@@ -417,6 +417,17 @@
     </div>
 
     <div class="q-block">
+      <div class="q-label">어떻게 오셨나요? <span style="font-weight:400;color:#888">(유입경로)</span></div>
+      <div class="radio-group row" id="rg_source">
+        <label class="radio-opt"><input type="radio" name="source" value="릴스"> 릴스</label>
+        <label class="radio-opt"><input type="radio" name="source" value="검색"> 검색</label>
+        <label class="radio-opt"><input type="radio" name="source" value="지인 소개"> 지인 소개</label>
+        <label class="radio-opt"><input type="radio" name="source" value="기타"> 기타</label>
+      </div>
+      <input class="text-input" type="text" id="q_source_other" placeholder="어디서 보셨는지 적어주세요 (예: 네이버 블로그)" style="display:none;margin-top:8px">
+    </div>
+
+    <div class="q-block">
       <div class="q-label">영어 공부의 목적이 무엇인가요?</div>
       <textarea class="text-input" rows="2" id="q_purpose" placeholder="예) 해외여행, 업무, 이민 준비, 그냥 배우고 싶어서..."></textarea>
     </div>
@@ -739,6 +750,7 @@ const FORM_ACTION = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeqgf-vSyI4PNJ
 const ENTRY = {
   name:      "entry.1759786508",
   contact:   "entry.174733891",
+  source:    "entry.1096023961",
   purpose:   "entry.1603149426",
   goal:      "entry.736934506",
   time:      "entry.1754924951",
@@ -855,6 +867,14 @@ function submitToGoogle() {
     params.append(ENTRY.contact, contactValue());
   } else {
     introVal = '[이름] ' + nameVal + '\n[연락처] ' + contactValue() + '\n\n' + introVal;
+  }
+
+  const srcVal = r('source');
+  if (srcVal === '기타') {
+    params.append(ENTRY.source, '__other_option__');
+    params.append(ENTRY.source + '.other_option_response', v('q_source_other'));
+  } else if (srcVal !== '(미선택)') {
+    params.append(ENTRY.source, srcVal);
   }
 
   params.append(ENTRY.purpose,   v('q_purpose'));
@@ -1009,6 +1029,15 @@ document.querySelectorAll('input[name="contact_type"]').forEach(el => {
     input.value = '';
     input.classList.remove('input-error');
     document.getElementById('errorMsg').classList.remove('visible');
+  });
+});
+
+// 유입경로에서 「기타」를 고르면 적는 칸 보이기
+document.querySelectorAll('input[name="source"]').forEach(el => {
+  el.addEventListener('change', () => {
+    const other = document.getElementById('q_source_other');
+    other.style.display = el.value === '기타' ? 'block' : 'none';
+    if (el.value === '기타') other.focus();
   });
 });
 
