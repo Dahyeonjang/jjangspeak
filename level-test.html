@@ -397,10 +397,10 @@
 
   <div class="section-tabs" id="sectionTabs">
     <div class="section-tab active" data-sec="0">기본 정보</div>
-    <div class="section-tab" data-sec="1">Part 1 읽기</div>
-    <div class="section-tab" data-sec="2">Part 2 순서 놓기</div>
-    <div class="section-tab" data-sec="3">Part 3 문장 만들기</div>
-    <div class="section-tab" data-sec="4">Part 4 한 문장 키우기</div>
+    <div class="section-tab" data-sec="1">Part 1 순서 놓기</div>
+    <div class="section-tab" data-sec="2">Part 2 문장 만들기</div>
+    <div class="section-tab" data-sec="3">Part 3 한 문장 키우기</div>
+    <div class="section-tab" data-sec="4">Part 4 읽기</div>
   </div>
 
   <div class="progress-wrap">
@@ -475,9 +475,93 @@
     </div>
   </div>
 
-  <!-- SEC 1: 읽기 (v2 · 2026-10-07) -->
+  <!-- SEC 1: 순서 놓기 (v2 · 2026-10-07) -->
   <div class="section-card" id="sec1">
-    <div class="section-title">Part 1 — 읽기</div>
+    <div class="section-title">Part 1 — 순서 놓기</div>
+    <div class="part-intro">단어는 바꾸지 않고, 순서만 정해서 문장으로 써 주세요.<br>무슨 뜻인지는 아래 한국어로 적어 두었어요.</div>
+
+    <div class="q-block">
+      <div class="q-label">1.</div>
+      <div class="word-chips"><span>lunch</span><span>I</span><span>at 12</span><span>eat</span></div>
+      <div class="q-sub">저는 12시에 점심을 먹어요.</div>
+      <input class="text-input" type="text" id="o1" placeholder="순서대로 문장을 써 주세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">2.</div>
+      <div class="word-chips"><span>busy</span><span>my mom</span><span>is</span><span>today</span><span>very</span></div>
+      <div class="q-sub">저희 엄마는 오늘 정말 바빠요.</div>
+      <input class="text-input" type="text" id="o2" placeholder="순서대로 문장을 써 주세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">3.</div>
+      <div class="word-chips"><span>sent</span><span>the file</span><span>my coworker</span><span>me</span></div>
+      <div class="q-sub">동료가 저한테 파일을 보냈어요.</div>
+      <input class="text-input" type="text" id="o3" placeholder="순서대로 문장을 써 주세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">4.</div>
+      <div class="word-chips"><span>the bus stop</span><span>I</span><span>where</span><span>is</span><span>don't know</span></div>
+      <div class="q-sub">버스 정류장이 어디인지 모르겠어요.</div>
+      <input class="text-input" type="text" id="o4" placeholder="순서대로 문장을 써 주세요">
+    </div>
+  </div>
+
+  <!-- SEC 2: 문장 만들기 (v2) -->
+  <div class="section-card" id="sec2">
+    <div class="section-title">Part 2 — 문장 만들기</div>
+
+    <div class="q-block">
+      <div class="q-label">1. 어색한 곳이 하나씩 있어요. 바르게 다시 써 주세요.</div>
+      <div class="q-sub">He don't like coffee.</div>
+      <input class="text-input" type="text" id="e1" placeholder="다시 쓴 문장을 입력하세요">
+      <div class="q-sub" style="margin-top:10px">She always make me laugh with her jokes.</div>
+      <input class="text-input" type="text" id="e2" placeholder="다시 쓴 문장을 입력하세요">
+      <div class="q-sub" style="margin-top:10px">The restaurant is very expensiver than I expected.</div>
+      <input class="text-input" type="text" id="e3" placeholder="다시 쓴 문장을 입력하세요">
+      <div class="q-sub" style="margin-top:10px">I want go home now.</div>
+      <input class="text-input" type="text" id="e4" placeholder="다시 쓴 문장을 입력하세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">2. 영어로 옮겨 주세요.</div>
+      <div class="q-sub">오늘 날씨가 정말 좋네요.</div>
+      <input class="text-input" type="text" id="t1" placeholder="영어로 써주세요">
+      <div class="q-sub" style="margin-top:10px">이 근처에 좋은 카페를 추천해 주시겠어요?</div>
+      <input class="text-input" type="text" id="t2" placeholder="영어로 써주세요">
+      <div class="q-sub" style="margin-top:10px">저는 매운 음식을 잘 먹지 못해요.</div>
+      <input class="text-input" type="text" id="t3" placeholder="영어로 써주세요">
+      <div class="q-sub" style="margin-top:10px">지금 가야 할 시간이 되었어요.</div>
+      <input class="text-input" type="text" id="t4" placeholder="영어로 써주세요">
+    </div>
+  </div>
+
+  <!-- SEC 3: 한 문장 키우기 (v2) -->
+  <div class="section-card" id="sec3">
+    <div class="section-title">Part 3 — 한 문장 키우기</div>
+    <div class="part-intro">한 문장이 조금씩 길어져요. 앞에서 쓴 문장을 그대로 가져와서 붙여 가시면 돼요.<br>영어 단어가 안 떠오르면 그 자리만 한국어로 두셔도 괜찮아요.</div>
+
+    <div class="q-block">
+      <div class="q-label">1. 저는 주말마다 친구를 만나요.</div>
+      <input class="text-input" type="text" id="g1" placeholder="영어로 써주세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">2. 저는 주말마다 친구를 만나는 걸 좋아해요.</div>
+      <input class="text-input" type="text" id="g2" placeholder="1번 문장을 가져와서 이어 써 주세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">3. 저는 시간이 날 때 주말마다 친구를 만나는 걸 좋아해요.</div>
+      <input class="text-input" type="text" id="g3" placeholder="2번 문장을 가져와서 이어 써 주세요">
+    </div>
+    <div class="q-block" style="border:none">
+      <div class="q-label">자기소개 <span style="font-weight:400;color:#888">(선택)</span></div>
+      <div class="q-sub">영어로 두세 문장만 써 주세요. 간단해도 좋아요!</div>
+      <textarea class="text-input" rows="3" id="w3" placeholder="My name is... / I am... / I like... 등 편하게 쓰세요 😊"></textarea>
+    </div>
+
+  </div>
+
+  <!-- SEC 4: 읽기 (v2) — 마지막 파트, 오픈카톡 상자 포함 -->
+  <div class="section-card" id="sec4">
+    <div class="section-title">Part 4 — 읽기</div>
     <div class="part-intro">짧은 글을 읽고 답해 주세요. <strong>한국어로 답하셔도 괜찮아요.</strong></div>
 
     <div class="q-block">
@@ -545,89 +629,6 @@
         <label class="radio-opt"><input type="radio" name="c4" value="getting"> getting</label>
         <label class="radio-opt"><input type="radio" name="c4" value="get"> get</label>
       </div>
-    </div>
-  </div>
-
-  <!-- SEC 2: 순서 놓기 (v2) -->
-  <div class="section-card" id="sec2">
-    <div class="section-title">Part 2 — 순서 놓기</div>
-    <div class="part-intro">단어는 바꾸지 않고, 순서만 정해서 문장으로 써 주세요.<br>무슨 뜻인지는 아래 한국어로 적어 두었어요.</div>
-
-    <div class="q-block">
-      <div class="q-label">1.</div>
-      <div class="word-chips"><span>lunch</span><span>I</span><span>at 12</span><span>eat</span></div>
-      <div class="q-sub">저는 12시에 점심을 먹어요.</div>
-      <input class="text-input" type="text" id="o1" placeholder="순서대로 문장을 써 주세요">
-    </div>
-    <div class="q-block">
-      <div class="q-label">2.</div>
-      <div class="word-chips"><span>busy</span><span>my mom</span><span>is</span><span>today</span><span>very</span></div>
-      <div class="q-sub">저희 엄마는 오늘 정말 바빠요.</div>
-      <input class="text-input" type="text" id="o2" placeholder="순서대로 문장을 써 주세요">
-    </div>
-    <div class="q-block">
-      <div class="q-label">3.</div>
-      <div class="word-chips"><span>sent</span><span>the file</span><span>my coworker</span><span>me</span></div>
-      <div class="q-sub">동료가 저한테 파일을 보냈어요.</div>
-      <input class="text-input" type="text" id="o3" placeholder="순서대로 문장을 써 주세요">
-    </div>
-    <div class="q-block">
-      <div class="q-label">4.</div>
-      <div class="word-chips"><span>the bus stop</span><span>I</span><span>where</span><span>is</span><span>don't know</span></div>
-      <div class="q-sub">버스 정류장이 어디인지 모르겠어요.</div>
-      <input class="text-input" type="text" id="o4" placeholder="순서대로 문장을 써 주세요">
-    </div>
-  </div>
-
-  <!-- SEC 3: 문장 만들기 (v2) -->
-  <div class="section-card" id="sec3">
-    <div class="section-title">Part 3 — 문장 만들기</div>
-
-    <div class="q-block">
-      <div class="q-label">1. 어색한 곳이 하나씩 있어요. 바르게 다시 써 주세요.</div>
-      <div class="q-sub">He don't like coffee.</div>
-      <input class="text-input" type="text" id="e1" placeholder="다시 쓴 문장을 입력하세요">
-      <div class="q-sub" style="margin-top:10px">She always make me laugh with her jokes.</div>
-      <input class="text-input" type="text" id="e2" placeholder="다시 쓴 문장을 입력하세요">
-      <div class="q-sub" style="margin-top:10px">The restaurant is very expensiver than I expected.</div>
-      <input class="text-input" type="text" id="e3" placeholder="다시 쓴 문장을 입력하세요">
-      <div class="q-sub" style="margin-top:10px">I want go home now.</div>
-      <input class="text-input" type="text" id="e4" placeholder="다시 쓴 문장을 입력하세요">
-    </div>
-    <div class="q-block">
-      <div class="q-label">2. 영어로 옮겨 주세요.</div>
-      <div class="q-sub">오늘 날씨가 정말 좋네요.</div>
-      <input class="text-input" type="text" id="t1" placeholder="영어로 써주세요">
-      <div class="q-sub" style="margin-top:10px">이 근처에 좋은 카페를 추천해 주시겠어요?</div>
-      <input class="text-input" type="text" id="t2" placeholder="영어로 써주세요">
-      <div class="q-sub" style="margin-top:10px">저는 매운 음식을 잘 먹지 못해요.</div>
-      <input class="text-input" type="text" id="t3" placeholder="영어로 써주세요">
-      <div class="q-sub" style="margin-top:10px">지금 가야 할 시간이 되었어요.</div>
-      <input class="text-input" type="text" id="t4" placeholder="영어로 써주세요">
-    </div>
-  </div>
-
-  <!-- SEC 4: 한 문장 키우기 (v2) -->
-  <div class="section-card" id="sec4">
-    <div class="section-title">Part 4 — 한 문장 키우기</div>
-    <div class="part-intro">한 문장이 조금씩 길어져요. 앞에서 쓴 문장을 그대로 가져와서 붙여 가시면 돼요.<br>영어 단어가 안 떠오르면 그 자리만 한국어로 두셔도 괜찮아요.</div>
-
-    <div class="q-block">
-      <div class="q-label">1. 저는 주말마다 친구를 만나요.</div>
-      <input class="text-input" type="text" id="g1" placeholder="영어로 써주세요">
-    </div>
-    <div class="q-block">
-      <div class="q-label">2. 저는 주말마다 친구를 만나는 걸 좋아해요.</div>
-      <input class="text-input" type="text" id="g2" placeholder="1번 문장을 가져와서 이어 써 주세요">
-    </div>
-    <div class="q-block">
-      <div class="q-label">3. 저는 시간이 날 때 주말마다 친구를 만나는 걸 좋아해요.</div>
-      <input class="text-input" type="text" id="g3" placeholder="2번 문장을 가져와서 이어 써 주세요">
-    </div>
-    <div class="q-block" style="border:none">
-      <div class="q-label">자기소개 <span style="font-weight:400;color:#888">(선택)</span></div>
-      <div class="q-sub">영어로 두세 문장만 써 주세요. 간단해도 좋아요!</div>
-      <textarea class="text-input" rows="3" id="w3" placeholder="My name is... / I am... / I like... 등 편하게 쓰세요 😊"></textarea>
     </div>
 
     <div class="kakao-box">
@@ -698,10 +699,11 @@ function r(name) {
 }
 
 // v2 (2026-10-07) — 파트 묶음 4칸은 v1 entry를 그대로 쓴다. 첫 줄 [v2]로 levelup이 정답표를 고른다.
-//   reading entry ← Part 1 읽기 · grammar entry ← Part 2 순서 놓기 · vocab entry ← Part 3 문장 만들기 · writing entry ← Part 4 한 문장 키우기
+//   칸은 파트 번호가 아니라 내용으로 잇는다(독해 칸에 독해가 계속 쌓이게):
+//   grammar entry ← Part 1 순서 놓기 · vocab entry ← Part 2 문장 만들기 · writing entry ← Part 3 한 문장 키우기 · reading entry ← Part 4 읽기
 function collectAll() {
   const reading = [
-    "[v2] Part 1 읽기",
+    "[v2] Part 4 읽기",
     "▶ Tom 독해",
     "취미: " + v('r1a'),
     "요리한 것: " + v('r1b'),
@@ -724,7 +726,7 @@ function collectAll() {
   ].join('\n');
 
   const grammar = [
-    "[v2] Part 2 순서 놓기",
+    "[v2] Part 1 순서 놓기",
     "O1. lunch / I / at 12 / eat: " + v('o1'),
     "O2. busy / my mom / is / today / very: " + v('o2'),
     "O3. sent / the file / my coworker / me: " + v('o3'),
@@ -732,7 +734,7 @@ function collectAll() {
   ].join('\n');
 
   const vocab = [
-    "[v2] Part 3 문장 만들기",
+    "[v2] Part 2 문장 만들기",
     "▶ 다시 쓰기",
     "E1. He don't like: " + v('e1'),
     "E2. always make: " + v('e2'),
@@ -746,7 +748,7 @@ function collectAll() {
   ].join('\n');
 
   const writing = [
-    "[v2] Part 4 한 문장 키우기",
+    "[v2] Part 3 한 문장 키우기",
     "G1. 주말마다 친구를 만나요: " + v('g1'),
     "G2. 만나는 걸 좋아해요: " + v('g2'),
     "G3. 시간이 날 때: " + v('g3'),
