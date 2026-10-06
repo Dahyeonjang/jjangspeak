@@ -419,11 +419,12 @@
       <div class="q-label">어떻게 오셨나요? <span style="font-weight:400;color:#888">(유입경로)</span></div>
       <div class="radio-group row" id="rg_source">
         <label class="radio-opt"><input type="radio" name="source" value="릴스"> 릴스</label>
+        <label class="radio-opt"><input type="radio" name="source" value="네이버 블로그"> 네이버 블로그</label>
         <label class="radio-opt"><input type="radio" name="source" value="검색"> 검색</label>
         <label class="radio-opt"><input type="radio" name="source" value="지인 소개"> 지인 소개</label>
         <label class="radio-opt"><input type="radio" name="source" value="기타"> 기타</label>
       </div>
-      <input class="text-input" type="text" id="q_source_other" placeholder="어디서 보셨는지 적어주세요 (예: 네이버 블로그)" style="display:none;margin-top:8px">
+      <input class="text-input" type="text" id="q_source_other" placeholder="어디서 보셨는지 적어주세요" style="display:none;margin-top:8px">
     </div>
 
     <div class="q-block">
@@ -760,6 +761,8 @@ const ENTRY = {
   reading:   "entry.354373209",
   writing:   "entry.47652853"
 };
+// 구글폼 「어떻게 오셨나요?」에 실제로 있는 선택지 (2026-10-06 확인). 폼에 선택지를 더하면 여기에도 같은 글자로 더한다.
+const FORM_SOURCE_CHOICES = ["릴스", "검색", "지인 소개"];
 
 let current = 0;
 const total = 5;
@@ -872,8 +875,12 @@ function submitToGoogle() {
   if (srcVal === '기타') {
     params.append(ENTRY.source, '__other_option__');
     params.append(ENTRY.source + '.other_option_response', v('q_source_other'));
-  } else if (srcVal !== '(미선택)') {
+  } else if (FORM_SOURCE_CHOICES.includes(srcVal)) {
     params.append(ENTRY.source, srcVal);
+  } else if (srcVal !== '(미선택)') {
+    // 구글폼 선택지에 없는 값(네이버 블로그)은 「기타」 칸 글자로 보낸다 — 선택지에 없는 값을 그대로 보내면 폼이 응답을 거를 수 있다
+    params.append(ENTRY.source, '__other_option__');
+    params.append(ENTRY.source + '.other_option_response', srcVal);
   }
 
   params.append(ENTRY.purpose,   v('q_purpose'));
