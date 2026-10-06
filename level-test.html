@@ -346,6 +346,26 @@
     }
     .error-msg.visible { display: block; }
 
+    /* v2 — 파트 안내 · 순서 놓기 단어 */
+    .part-intro {
+      font-size: 13px;
+      color: #0f6e56;
+      background: #f0faf6;
+      border-radius: 10px;
+      padding: 12px 14px;
+      line-height: 1.7;
+      margin: -8px 0 22px;
+    }
+    .word-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .word-chips span {
+      font-size: 13px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid #c5d5cf;
+      background: #f7faf8;
+      color: #1a1a1a;
+    }
+
     /* REQUIRED */
     .req { color: #c0392b; font-weight: 700; margin-left: 3px; }
     .q-note {
@@ -371,15 +391,16 @@
     <div class="brand-label">JJANGSPEAK · 짱스픽</div>
     <h1>수강 전 영어 레벨테스트</h1>
     <p>총 4개 파트 · 약 15~20분 소요<br>
+    단어 시험이 아니에요. 아는 단어로 문장을 어떻게 만드시는지 보려고 해요.<br>
     아는 만큼만 쓰시면 됩니다 — 모르는 문제는 비워두셔도 괜찮아요 😊</p>
   </div>
 
   <div class="section-tabs" id="sectionTabs">
     <div class="section-tab active" data-sec="0">기본 정보</div>
-    <div class="section-tab" data-sec="1">Part 1 문법</div>
-    <div class="section-tab" data-sec="2">Part 2 어휘</div>
-    <div class="section-tab" data-sec="3">Part 3 독해</div>
-    <div class="section-tab" data-sec="4">Part 4 작문</div>
+    <div class="section-tab" data-sec="1">Part 1 읽기</div>
+    <div class="section-tab" data-sec="2">Part 2 순서 놓기</div>
+    <div class="section-tab" data-sec="3">Part 3 문장 만들기</div>
+    <div class="section-tab" data-sec="4">Part 4 한 문장 키우기</div>
   </div>
 
   <div class="progress-wrap">
@@ -454,194 +475,10 @@
     </div>
   </div>
 
-  <!-- SEC 1: 문법 -->
+  <!-- SEC 1: 읽기 (v2 · 2026-10-07) -->
   <div class="section-card" id="sec1">
-    <div class="section-title">Part 1 — 문법 (Grammar)</div>
-
-    <div class="q-block">
-      <div class="q-label">1. 빈칸에 알맞은 단어를 고르세요.</div>
-      <div class="q-sub">She ______ to the gym every morning.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="g1a" value="go"> go</label>
-        <label class="radio-opt"><input type="radio" name="g1a" value="goes"> goes</label>
-        <label class="radio-opt"><input type="radio" name="g1a" value="going"> going</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-sub">If I ______ you, I would take the job.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="g1b" value="was"> was</label>
-        <label class="radio-opt"><input type="radio" name="g1b" value="were"> were</label>
-        <label class="radio-opt"><input type="radio" name="g1b" value="am"> am</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-sub">They ______ never been to Paris before.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="g1c" value="has"> has</label>
-        <label class="radio-opt"><input type="radio" name="g1c" value="have"> have</label>
-        <label class="radio-opt"><input type="radio" name="g1c" value="having"> having</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-label">2. 수의 일치 — 알맞은 것을 고르세요.</div>
-      <div class="q-sub">Either my parents or my sister ______ coming to the party.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="g2a" value="is"> is</label>
-        <label class="radio-opt"><input type="radio" name="g2a" value="are"> are</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-sub">Everyone ______ that he is a great musician.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="g2b" value="know"> know</label>
-        <label class="radio-opt"><input type="radio" name="g2b" value="knows"> knows</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-label">3. to 부정사 — 알맞은 것을 고르세요.</div>
-      <div class="q-sub">I want ______ how to cook Italian food.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="g3a" value="to learn"> to learn</label>
-        <label class="radio-opt"><input type="radio" name="g3a" value="learning"> learning</label>
-        <label class="radio-opt"><input type="radio" name="g3a" value="learn"> learn</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-sub">He decided ______ abroad for further studies.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="g3b" value="to go"> to go</label>
-        <label class="radio-opt"><input type="radio" name="g3b" value="going"> going</label>
-        <label class="radio-opt"><input type="radio" name="g3b" value="go"> go</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-label">4. 문장 형식 — 몇 형식인지 고르세요.</div>
-      <div class="q-sub">I bought a new laptop.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="g4a" value="1형식"> 1형식</label>
-        <label class="radio-opt"><input type="radio" name="g4a" value="2형식"> 2형식</label>
-        <label class="radio-opt"><input type="radio" name="g4a" value="3형식"> 3형식</label>
-        <label class="radio-opt"><input type="radio" name="g4a" value="4형식"> 4형식</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-sub">They gave me a wonderful gift.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="g4b" value="1형식"> 1형식</label>
-        <label class="radio-opt"><input type="radio" name="g4b" value="3형식"> 3형식</label>
-        <label class="radio-opt"><input type="radio" name="g4b" value="4형식"> 4형식</label>
-        <label class="radio-opt"><input type="radio" name="g4b" value="5형식"> 5형식</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-sub">She looks happy today.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="g4c" value="1형식"> 1형식</label>
-        <label class="radio-opt"><input type="radio" name="g4c" value="2형식"> 2형식</label>
-        <label class="radio-opt"><input type="radio" name="g4c" value="3형식"> 3형식</label>
-        <label class="radio-opt"><input type="radio" name="g4c" value="5형식"> 5형식</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-sub">We consider him a great leader.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="g4d" value="3형식"> 3형식</label>
-        <label class="radio-opt"><input type="radio" name="g4d" value="4형식"> 4형식</label>
-        <label class="radio-opt"><input type="radio" name="g4d" value="5형식"> 5형식</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-label">5. 문장 변환 — 빈칸을 채우세요.</div>
-      <div class="q-sub">He gave a book to me. → (4형식으로)</div>
-      <input class="text-input" type="text" id="g5a" placeholder="He gave me ...">
-      <div class="q-sub" style="margin-top:12px">She told me a story. → (3형식으로)</div>
-      <input class="text-input" type="text" id="g5b" placeholder="She told a story ...">
-      <div class="q-sub" style="margin-top:12px">We elected him the president. → (3형식으로)</div>
-      <input class="text-input" type="text" id="g5c" placeholder="We elected ...">
-    </div>
-    <div class="q-block">
-      <div class="q-label">6. 틀린 부분을 고쳐 쓰세요.</div>
-      <div class="q-sub">He don't like coffee.</div>
-      <input class="text-input" type="text" id="g6a" placeholder="고친 문장을 입력하세요">
-      <div class="q-sub" style="margin-top:10px">She is more smarter than her brother.</div>
-      <input class="text-input" type="text" id="g6b" placeholder="고친 문장을 입력하세요">
-      <div class="q-sub" style="margin-top:10px">I heard him sings a beautiful song yesterday.</div>
-      <input class="text-input" type="text" id="g6c" placeholder="고친 문장을 입력하세요">
-    </div>
-  </div>
-
-  <!-- SEC 2: 어휘 -->
-  <div class="section-card" id="sec2">
-    <div class="section-title">Part 2 — 어휘 (Vocabulary)</div>
-
-    <div class="q-block">
-      <div class="q-label">1. 알맞은 단어를 고르세요.</div>
-      <div class="q-sub">Please ______ the form before submitting it.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="v1a" value="complete"> complete</label>
-        <label class="radio-opt"><input type="radio" name="v1a" value="fill"> fill</label>
-        <label class="radio-opt"><input type="radio" name="v1a" value="put"> put</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-sub">The movie was so ______ that I almost fell asleep.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="v1b" value="boring"> boring</label>
-        <label class="radio-opt"><input type="radio" name="v1b" value="exciting"> exciting</label>
-        <label class="radio-opt"><input type="radio" name="v1b" value="delicious"> delicious</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-sub">Don't forget to ______ me when you arrive.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="v1c" value="call"> call</label>
-        <label class="radio-opt"><input type="radio" name="v1c" value="contact"> contact</label>
-        <label class="radio-opt"><input type="radio" name="v1c" value="reach"> reach</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-label">2. 회화 표현 — 알맞은 것을 고르세요.</div>
-      <div class="q-sub">I'm looking forward to ______ you tomorrow.</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="v2a" value="meet"> meet</label>
-        <label class="radio-opt"><input type="radio" name="v2a" value="meeting"> meeting</label>
-        <label class="radio-opt"><input type="radio" name="v2a" value="to meet"> to meet</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-sub">Do you ______ if I borrow your pen for a second?</div>
-      <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="v2b" value="mind"> mind</label>
-        <label class="radio-opt"><input type="radio" name="v2b" value="know"> know</label>
-        <label class="radio-opt"><input type="radio" name="v2b" value="remember"> remember</label>
-      </div>
-    </div>
-    <div class="q-block">
-      <div class="q-label">3. 틀린 부분을 찾아 고쳐 쓰세요.</div>
-      <div class="q-sub">She always make me laugh with her jokes.</div>
-      <input class="text-input" type="text" id="v3a" placeholder="고친 문장을 입력하세요">
-      <div class="q-sub" style="margin-top:10px">The restaurant is very expensiver than I expected.</div>
-      <input class="text-input" type="text" id="v3b" placeholder="고친 문장을 입력하세요">
-      <div class="q-sub" style="margin-top:10px">I don't know where is the nearest supermarket.</div>
-      <input class="text-input" type="text" id="v3c" placeholder="고친 문장을 입력하세요">
-    </div>
-    <div class="q-block">
-      <div class="q-label">4. 한 → 영 번역</div>
-      <div class="q-sub">오늘 날씨가 정말 좋네요.</div>
-      <input class="text-input" type="text" id="v4a" placeholder="영어로 써주세요">
-      <div class="q-sub" style="margin-top:10px">이 근처에 좋은 카페를 추천해 주시겠어요?</div>
-      <input class="text-input" type="text" id="v4b" placeholder="영어로 써주세요">
-      <div class="q-sub" style="margin-top:10px">저는 매운 음식을 잘 먹지 못해요.</div>
-      <input class="text-input" type="text" id="v4c" placeholder="영어로 써주세요">
-      <div class="q-sub" style="margin-top:10px">지금 가야 할 시간이 되었어요.</div>
-      <input class="text-input" type="text" id="v4d" placeholder="영어로 써주세요">
-    </div>
-  </div>
-
-  <!-- SEC 3: 독해 -->
-  <div class="section-card" id="sec3">
-    <div class="section-title">Part 3 — 독해 (Reading)</div>
+    <div class="section-title">Part 1 — 읽기</div>
+    <div class="part-intro">짧은 글을 읽고 답해 주세요. <strong>한국어로 답하셔도 괜찮아요.</strong></div>
 
     <div class="q-block">
       <div class="q-label">1. 다음 글을 읽고 질문에 답하세요.</div>
@@ -664,49 +501,133 @@
       <div class="q-label">3. 광고를 읽고 답하세요.</div>
       <div class="passage-box">Looking for fresh fruits and vegetables? Visit Green Market, where everything is organic and locally sourced. Open daily from 8 AM to 8 PM. Find us at 123 Main Street!</div>
       <div class="q-sub">What does Green Market sell?</div>
-      <input class="text-input" type="text" id="r3a" placeholder="답을 입력하세요">
+      <input class="text-input" type="text" id="r3a" placeholder="영어 또는 한국어로 답하세요">
       <div class="q-sub" style="margin-top:10px">What time does Green Market close?</div>
-      <input class="text-input" type="text" id="r3b" placeholder="답을 입력하세요">
+      <input class="text-input" type="text" id="r3b" placeholder="영어 또는 한국어로 답하세요">
     </div>
     <div class="q-block">
-      <div class="q-label">4. 중급 독해</div>
+      <div class="q-label">4. 조금 긴 글이에요.</div>
       <div class="passage-box">James works as a software engineer in a large company. He starts his day at 9 AM and usually finishes work by 6 PM. Although his job is challenging, he enjoys solving problems and learning new things. On weekends, he spends time with his family or plays video games to relax.</div>
       <div class="q-sub">What is James's job?</div>
-      <input class="text-input" type="text" id="r4a" placeholder="답을 입력하세요">
+      <input class="text-input" type="text" id="r4a" placeholder="영어 또는 한국어로 답하세요">
       <div class="q-sub" style="margin-top:10px">What does James do to relax on weekends?</div>
-      <input class="text-input" type="text" id="r4b" placeholder="답을 입력하세요">
+      <input class="text-input" type="text" id="r4b" placeholder="영어 또는 한국어로 답하세요">
     </div>
     <div class="q-block">
-      <div class="q-label">5. 가장 적절한 제목을 고르세요.</div>
-      <div class="passage-box">Animals play an important role in maintaining the balance of ecosystems. For example, bees help pollinate plants, and birds control insect populations. Without these animals, many ecosystems would not function properly.</div>
+      <div class="q-label">5. 문장을 읽고 알맞은 말을 골라 주세요.</div>
+      <div class="q-sub">She ______ to the gym every morning.</div>
       <div class="radio-group">
-        <label class="radio-opt"><input type="radio" name="r5" value="a) The Importance of Bees"> a) The Importance of Bees</label>
-        <label class="radio-opt"><input type="radio" name="r5" value="b) How Animals Contribute to Ecosystems"> b) How Animals Contribute to Ecosystems</label>
-        <label class="radio-opt"><input type="radio" name="r5" value="c) Protecting Plants from Insects"> c) Protecting Plants from Insects</label>
+        <label class="radio-opt"><input type="radio" name="c1" value="go"> go</label>
+        <label class="radio-opt"><input type="radio" name="c1" value="goes"> goes</label>
+        <label class="radio-opt"><input type="radio" name="c1" value="going"> going</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">They ______ never been to Paris before.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="c2" value="has"> has</label>
+        <label class="radio-opt"><input type="radio" name="c2" value="have"> have</label>
+        <label class="radio-opt"><input type="radio" name="c2" value="having"> having</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">I want ______ how to cook Italian food.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="c3" value="to learn"> to learn</label>
+        <label class="radio-opt"><input type="radio" name="c3" value="learning"> learning</label>
+        <label class="radio-opt"><input type="radio" name="c3" value="learn"> learn</label>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-sub">I need ______ up early tomorrow.</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="c4" value="to get"> to get</label>
+        <label class="radio-opt"><input type="radio" name="c4" value="getting"> getting</label>
+        <label class="radio-opt"><input type="radio" name="c4" value="get"> get</label>
       </div>
     </div>
   </div>
 
-  <!-- SEC 4: 작문 -->
-  <div class="section-card" id="sec4">
-    <div class="section-title">Part 4 — 작문 (Writing)</div>
+  <!-- SEC 2: 순서 놓기 (v2) -->
+  <div class="section-card" id="sec2">
+    <div class="section-title">Part 2 — 순서 놓기</div>
+    <div class="part-intro">단어는 바꾸지 않고, 순서만 정해서 문장으로 써 주세요.<br>무슨 뜻인지는 아래 한국어로 적어 두었어요.</div>
 
     <div class="q-block">
-      <div class="q-label">1. 주어진 주제로 50~100단어 영어 작문</div>
-      <div class="q-sub">Topic: Describe your favorite hobby and why you enjoy it.</div>
-      <textarea class="text-input" rows="6" id="w1" placeholder="자유롭게 써주세요. 생각나는 대로 쓰시면 됩니다 😊"></textarea>
+      <div class="q-label">1.</div>
+      <div class="word-chips"><span>lunch</span><span>I</span><span>at 12</span><span>eat</span></div>
+      <div class="q-sub">저는 12시에 점심을 먹어요.</div>
+      <input class="text-input" type="text" id="o1" placeholder="순서대로 문장을 써 주세요">
     </div>
     <div class="q-block">
-      <div class="q-label">2. 문장을 완성하세요.</div>
-      <div style="font-size:13px;color:#333;line-height:2">
-        If I could travel anywhere, I would go to
-        <input class="fill-input" id="w2" style="width:240px" placeholder="여행지와 이유를 자유롭게">
-      </div>
+      <div class="q-label">2.</div>
+      <div class="word-chips"><span>busy</span><span>my mom</span><span>is</span><span>today</span><span>very</span></div>
+      <div class="q-sub">저희 엄마는 오늘 정말 바빠요.</div>
+      <input class="text-input" type="text" id="o2" placeholder="순서대로 문장을 써 주세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">3.</div>
+      <div class="word-chips"><span>sent</span><span>the file</span><span>my coworker</span><span>me</span></div>
+      <div class="q-sub">동료가 저한테 파일을 보냈어요.</div>
+      <input class="text-input" type="text" id="o3" placeholder="순서대로 문장을 써 주세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">4.</div>
+      <div class="word-chips"><span>the bus stop</span><span>I</span><span>where</span><span>is</span><span>don't know</span></div>
+      <div class="q-sub">버스 정류장이 어디인지 모르겠어요.</div>
+      <input class="text-input" type="text" id="o4" placeholder="순서대로 문장을 써 주세요">
+    </div>
+  </div>
+
+  <!-- SEC 3: 문장 만들기 (v2) -->
+  <div class="section-card" id="sec3">
+    <div class="section-title">Part 3 — 문장 만들기</div>
+
+    <div class="q-block">
+      <div class="q-label">1. 어색한 곳이 하나씩 있어요. 바르게 다시 써 주세요.</div>
+      <div class="q-sub">He don't like coffee.</div>
+      <input class="text-input" type="text" id="e1" placeholder="다시 쓴 문장을 입력하세요">
+      <div class="q-sub" style="margin-top:10px">She always make me laugh with her jokes.</div>
+      <input class="text-input" type="text" id="e2" placeholder="다시 쓴 문장을 입력하세요">
+      <div class="q-sub" style="margin-top:10px">The restaurant is very expensiver than I expected.</div>
+      <input class="text-input" type="text" id="e3" placeholder="다시 쓴 문장을 입력하세요">
+      <div class="q-sub" style="margin-top:10px">I want go home now.</div>
+      <input class="text-input" type="text" id="e4" placeholder="다시 쓴 문장을 입력하세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">2. 영어로 옮겨 주세요.</div>
+      <div class="q-sub">오늘 날씨가 정말 좋네요.</div>
+      <input class="text-input" type="text" id="t1" placeholder="영어로 써주세요">
+      <div class="q-sub" style="margin-top:10px">이 근처에 좋은 카페를 추천해 주시겠어요?</div>
+      <input class="text-input" type="text" id="t2" placeholder="영어로 써주세요">
+      <div class="q-sub" style="margin-top:10px">저는 매운 음식을 잘 먹지 못해요.</div>
+      <input class="text-input" type="text" id="t3" placeholder="영어로 써주세요">
+      <div class="q-sub" style="margin-top:10px">지금 가야 할 시간이 되었어요.</div>
+      <input class="text-input" type="text" id="t4" placeholder="영어로 써주세요">
+    </div>
+  </div>
+
+  <!-- SEC 4: 한 문장 키우기 (v2) -->
+  <div class="section-card" id="sec4">
+    <div class="section-title">Part 4 — 한 문장 키우기</div>
+    <div class="part-intro">한 문장이 조금씩 길어져요. 앞에서 쓴 문장을 그대로 가져와서 붙여 가시면 돼요.<br>영어 단어가 안 떠오르면 그 자리만 한국어로 두셔도 괜찮아요.</div>
+
+    <div class="q-block">
+      <div class="q-label">1. 저는 주말마다 친구를 만나요.</div>
+      <input class="text-input" type="text" id="g1" placeholder="영어로 써주세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">2. 저는 주말마다 친구를 만나는 걸 좋아해요.</div>
+      <input class="text-input" type="text" id="g2" placeholder="1번 문장을 가져와서 이어 써 주세요">
+    </div>
+    <div class="q-block">
+      <div class="q-label">3. 저는 시간이 날 때 주말마다 친구를 만나는 걸 좋아해요.</div>
+      <input class="text-input" type="text" id="g3" placeholder="2번 문장을 가져와서 이어 써 주세요">
     </div>
     <div class="q-block" style="border:none">
-      <div class="q-label">3. 자기소개 한 문단 <span style="font-weight:400;color:#888">(선택)</span></div>
-      <div class="q-sub">영어로 자신을 소개해 보세요. 간단해도 좋아요!</div>
-      <textarea class="text-input" rows="4" id="w3" placeholder="My name is... / I am... / I like... 등 편하게 쓰세요 😊"></textarea>
+      <div class="q-label">자기소개 <span style="font-weight:400;color:#888">(선택)</span></div>
+      <div class="q-sub">영어로 두세 문장만 써 주세요. 간단해도 좋아요!</div>
+      <textarea class="text-input" rows="3" id="w3" placeholder="My name is... / I am... / I like... 등 편하게 쓰세요 😊"></textarea>
     </div>
 
     <div class="kakao-box">
@@ -776,53 +697,11 @@ function r(name) {
   return c ? c.value : '(미선택)';
 }
 
+// v2 (2026-10-07) — 파트 묶음 4칸은 v1 entry를 그대로 쓴다. 첫 줄 [v2]로 levelup이 정답표를 고른다.
+//   reading entry ← Part 1 읽기 · grammar entry ← Part 2 순서 놓기 · vocab entry ← Part 3 문장 만들기 · writing entry ← Part 4 한 문장 키우기
 function collectAll() {
-  const grammar = [
-    "▶ 빈칸 채우기",
-    "1-1. She __ gym: " + r('g1a'),
-    "1-2. If I __ you: " + r('g1b'),
-    "1-3. They __ never: " + r('g1c'),
-    "▶ 수의 일치",
-    "2-1. sister __ coming: " + r('g2a'),
-    "2-2. Everyone __ that: " + r('g2b'),
-    "▶ to부정사",
-    "3-1. I want __: " + r('g3a'),
-    "3-2. He decided __: " + r('g3b'),
-    "▶ 문장 형식",
-    "4-1. I bought laptop: " + r('g4a'),
-    "4-2. They gave me gift: " + r('g4b'),
-    "4-3. She looks happy: " + r('g4c'),
-    "4-4. We consider him: " + r('g4d'),
-    "▶ 문장 변환",
-    "5-1. gave a book → 4형식: " + v('g5a'),
-    "5-2. told me a story → 3형식: " + v('g5b'),
-    "5-3. elected him president → 3형식: " + v('g5c'),
-    "▶ 오류 교정",
-    "6-1. don't → : " + v('g6a'),
-    "6-2. more smarter → : " + v('g6b'),
-    "6-3. sings → : " + v('g6c')
-  ].join('\n');
-
-  const vocab = [
-    "▶ 단어 선택",
-    "1-1. __ the form: " + r('v1a'),
-    "1-2. so __ fell asleep: " + r('v1b'),
-    "1-3. __ me when arrive: " + r('v1c'),
-    "▶ 회화 표현",
-    "2-1. looking forward to __ you: " + r('v2a'),
-    "2-2. do you __ if I borrow: " + r('v2b'),
-    "▶ 오류 교정",
-    "3-1. always make: " + v('v3a'),
-    "3-2. expensiver: " + v('v3b'),
-    "3-3. where is: " + v('v3c'),
-    "▶ 한→영 번역",
-    "4-1. 오늘 날씨: " + v('v4a'),
-    "4-2. 카페 추천: " + v('v4b'),
-    "4-3. 매운 음식: " + v('v4c'),
-    "4-4. 가야 할 시간: " + v('v4d')
-  ].join('\n');
-
   const reading = [
+    "[v2] Part 1 읽기",
     "▶ Tom 독해",
     "취미: " + v('r1a'),
     "요리한 것: " + v('r1b'),
@@ -837,14 +716,40 @@ function collectAll() {
     "▶ James 독해",
     "직업: " + v('r4a'),
     "주말 활동: " + v('r4b'),
-    "▶ 제목 고르기: " + r('r5')
+    "▶ 고르기",
+    "C1. She __ to the gym: " + r('c1'),
+    "C2. They __ never been: " + r('c2'),
+    "C3. I want __ how to cook: " + r('c3'),
+    "C4. I need __ up early: " + r('c4')
+  ].join('\n');
+
+  const grammar = [
+    "[v2] Part 2 순서 놓기",
+    "O1. lunch / I / at 12 / eat: " + v('o1'),
+    "O2. busy / my mom / is / today / very: " + v('o2'),
+    "O3. sent / the file / my coworker / me: " + v('o3'),
+    "O4. the bus stop / I / where / is / don't know: " + v('o4')
+  ].join('\n');
+
+  const vocab = [
+    "[v2] Part 3 문장 만들기",
+    "▶ 다시 쓰기",
+    "E1. He don't like: " + v('e1'),
+    "E2. always make: " + v('e2'),
+    "E3. expensiver: " + v('e3'),
+    "E4. want go home: " + v('e4'),
+    "▶ 영어로 옮기기",
+    "T1. 오늘 날씨: " + v('t1'),
+    "T2. 카페 추천: " + v('t2'),
+    "T3. 매운 음식: " + v('t3'),
+    "T4. 가야 할 시간: " + v('t4')
   ].join('\n');
 
   const writing = [
-    "▶ 취미 작문 (50-100단어)",
-    v('w1'),
-    "▶ If I could travel...",
-    v('w2'),
+    "[v2] Part 4 한 문장 키우기",
+    "G1. 주말마다 친구를 만나요: " + v('g1'),
+    "G2. 만나는 걸 좋아해요: " + v('g2'),
+    "G3. 시간이 날 때: " + v('g3'),
     "▶ 자기소개 (선택)",
     v('w3')
   ].join('\n');
