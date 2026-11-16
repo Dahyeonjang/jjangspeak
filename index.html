@@ -217,6 +217,18 @@
     }
     .warn-list li::before { content: '!'; position: absolute; left: 0; color: #D4820A; font-weight: 900; }
 
+    /* NOTICE — 수업 안내 주의 */
+    .notice-list {
+      list-style: none; margin-top: 16px; padding: 14px 16px;
+      background: #FDF0EF; border: 1px solid #F3C4C0; border-radius: 10px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .notice-list li {
+      font-size: 13px; font-weight: 500; color: #B42318; line-height: 1.65;
+      padding-left: 18px; position: relative;
+    }
+    .notice-list li::before { content: '※'; position: absolute; left: 0; font-weight: 700; }
+
     /* LEVEL TEST */
     .level-box {
       background: #f7f7f5;
@@ -299,6 +311,58 @@
       padding: 24px; font-size: 13px; color: #999;
     }
     .footer strong { color: #1D9E75; }
+
+    /* MEDIA — 이미지·영상 자리 */
+    .media { margin-top: 12px; border-radius: 12px; overflow: hidden; border: 1px solid #e6e6e0; background: #fafaf7; }
+    .media img, .media video { display: block; width: 100%; height: auto; }
+    .ph {
+      margin-top: 12px; border: 2px dashed #b9dccf; border-radius: 12px;
+      background: #f3faf7; color: #1D6B52; text-align: center;
+      padding: 34px 16px; font-size: 13px; line-height: 1.7;
+    }
+    .ph b { display: block; font-size: 14px; margin-bottom: 4px; }
+
+    /* WEEK FLOW — 수업 한 번에 들어가는 것 */
+    .week { display: flex; flex-direction: column; gap: 28px; margin-top: 22px; }
+    .week-item { display: flex; gap: 14px; }
+    .week-rail { display: flex; flex-direction: column; align-items: center; }
+    .week-num {
+      width: 30px; height: 30px; min-width: 30px; border-radius: 50%;
+      background: #1D9E75; color: #fff; font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .week-line { flex: 1; width: 2px; background: #d6ece4; margin-top: 6px; }
+    .week-item:last-child .week-line { display: none; }
+    .week-body { flex: 1; min-width: 0; }
+    .week-when { font-size: 11px; font-weight: 700; color: #1D9E75; letter-spacing: 0.06em; }
+    .week-title { font-size: 15px; font-weight: 700; color: #111; margin: 2px 0 4px; }
+    .week-desc { font-size: 13px; color: #555; line-height: 1.75; }
+
+    /* REVIEWS */
+    .review-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; align-items: start; }
+    .review-quote { font-size: 13px; font-weight: 700; color: #0a3d2e; line-height: 1.5; margin-bottom: 2px; }
+    .review-who { font-size: 11px; color: #888; line-height: 1.4; }
+    .review-list .media { background: #111; border: 0; margin-top: 8px; }
+    .review-list a { display: block; }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: start; }
+    .media-narrow { max-width: 360px; margin-left: auto; margin-right: auto; }
+
+    /* PRICE CARD */
+    .price-card {
+      margin-top: 18px; border: 2px solid #1D9E75; border-radius: 16px;
+      padding: 24px 24px 22px; background: #fff;
+    }
+    .price-card .price { font-size: 32px; }
+    .price-meta { font-size: 13px; color: #666; margin-top: 4px; }
+    .price-incl-title { font-size: 13px; font-weight: 700; color: #111; margin-top: 18px; padding-top: 16px; border-top: 1px solid #eeeeea; }
+    .li-sub { display: block; font-size: 12px; color: #1D6B52; margin-top: 2px; }
+    .li-sub strong { color: #0a3d2e; font-weight: 700; }
+    .price-day { font-size: 12px; color: #1D9E75; font-weight: 500; margin-top: 4px; }
+    .price-total {
+      margin-top: 18px; background: #E8F8F2; border-radius: 10px;
+      padding: 12px 16px; font-size: 13px; color: #1D6B52; line-height: 1.7;
+    }
+    .price-total strong { color: #085041; }
 
     @media (max-width: 560px) {
       .header { padding: 36px 28px 36px; }
@@ -384,6 +448,8 @@
           모르는 문제는 비워두셔도 분석에 전혀 문제없어요. 오히려 그게 정확한 출발점이 됩니다.
         </div>
       </div>
+      <div class="sec-body" style="margin-top:22px;">무료 분석 리포트는 이렇게 생겼어요.</div>
+      <div class="media media-narrow"><img src="img/report.gif" alt="레벨테스트 분석 리포트 예시" loading="lazy"></div>
     </div>
 
     <!-- 강사 소개 -->
@@ -444,6 +510,76 @@
       </div>
     </div>
 
+    <!-- 수업 한 번에 들어가는 것 -->
+    <div class="section">
+      <div class="eyebrow">수업료에 들어가는 것</div>
+      <div class="sec-title">60분 수업 말고도,<br>일주일 내내 함께해요</div>
+      <div class="sec-body">한 주는 이렇게 흘러갑니다.</div>
+      <div class="week">
+        <div class="week-item">
+          <div class="week-rail"><div class="week-num">1</div><div class="week-line"></div></div>
+          <div class="week-body">
+            <div class="week-when">수업 전</div>
+            <div class="week-title">내 수준에 맞춘 수업 자료</div>
+            <div class="week-desc">지난 수업에서 막힌 곳을 보고 자료를 새로 만듭니다. 구글 닥스로 공유해서 언제든 다시 볼 수 있어요.</div>
+            <div class="media"><img src="img/docs.gif" alt="구글 닥스 수업 자료 화면" loading="lazy"></div>
+          </div>
+        </div>
+        <div class="week-item">
+          <div class="week-rail"><div class="week-num">2</div><div class="week-line"></div></div>
+          <div class="week-body">
+            <div class="week-when">수업 60분</div>
+            <div class="week-title">1:1로 문장을 직접 만들어요</div>
+            <div class="week-desc">설명을 듣기만 하지 않습니다. 배운 틀로 내 문장을 만들고, 그 자리에서 고칩니다.</div>
+          </div>
+        </div>
+        <div class="week-item">
+          <div class="week-rail"><div class="week-num">3</div><div class="week-line"></div></div>
+          <div class="week-body">
+            <div class="week-when">수업 후</div>
+            <div class="week-title">숙제는 한 문장씩 첨삭해요</div>
+            <div class="week-desc">맞은 문장, 틀린 문장, 왜 틀렸는지까지 표시해서 돌려드립니다. 분량은 함께 정해요.</div>
+            <div class="media"><img src="img/correction.gif" alt="숙제 첨삭 화면" loading="lazy"></div>
+          </div>
+        </div>
+        <div class="week-item">
+          <div class="week-rail"><div class="week-num">4</div><div class="week-line"></div></div>
+          <div class="week-body">
+            <div class="week-when">수업 사이</div>
+            <div class="week-title">모르는 건 카톡으로 바로 물어요</div>
+            <div class="week-desc">다음 수업까지 기다리지 않아도 됩니다. 필요한 자료가 있으면 따로 더 드려요.</div>
+            <div class="pair">
+              <div class="media"><img src="img/kakao1.jpg" alt="카톡 질문과 답변 — worry와 worried" loading="lazy"></div>
+              <div class="media"><img src="img/kakao2.jpg" alt="카톡 질문과 답변 — no와 not" loading="lazy"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 수강생 후기 -->
+    <div class="section">
+      <div class="eyebrow">수강생 후기</div>
+      <div class="sec-title">먼저 함께한 분들의 이야기</div>
+      <div class="review-list">
+        <div>
+          <div class="review-quote">"외국인에게 말을 걸어봤어요"</div>
+          <div class="review-who">3개월 뒤 캐나다 워홀</div>
+          <a href="img/review1.png" target="_blank"><div class="media"><img src="img/review1.png" alt="수강 후기 — 3개월 수업 후 캐나다 워홀" loading="lazy"></div></a>
+        </div>
+        <div>
+          <div class="review-quote">"알파벳만 읽던 왕초보였어요"</div>
+          <div class="review-who">완전 기초에서 시작</div>
+          <a href="img/review2.png" target="_blank"><div class="media"><img src="img/review2.png" alt="수강 후기 — 알파벳만 읽던 왕초보" loading="lazy"></div></a>
+        </div>
+        <div>
+          <div class="review-quote">"왜 문법부터인지 알겠어요"</div>
+          <div class="review-who">회화가 목적이었던 분</div>
+          <a href="img/review3.png" target="_blank"><div class="media"><img src="img/review3.png" alt="수강 후기 — 영어의 뼈대와 5형식" loading="lazy"></div></a>
+        </div>
+      </div>
+    </div>
+
     <!-- 3개월 졸업 -->
     <div class="section">
       <div class="eyebrow">수업 목표 — 3개월 졸업</div>
@@ -476,13 +612,25 @@
     <!-- 수업 안내 -->
     <div class="section">
       <div class="eyebrow">수업 안내</div>
-      <div class="sec-title">수업 구성</div>
+      <div class="sec-title">수업료</div>
+      <div class="price-card">
+        <div><span class="price">240,000</span><span class="price-unit">원 / 4회</span></div>
+        <div class="price-meta">주 1회 · 60분 · 1회 60,000원</div>
+        <div class="price-day">하루 약 8,600원 · 숙제와 첨삭이 매일 이어져요</div>
+        <div class="price-incl-title">1회 60,000원에 들어가는 것</div>
+        <ul class="check-list">
+          <li>내 수준에 맞춘 수업 자료 (구글 닥스)<span class="li-sub"><strong>수업이 끝나도 내 자료로 남아서</strong> 두고두고 다시 볼 수 있어요</span></li>
+          <li>60분 1:1 수업</li>
+          <li>매일 숙제와 첨삭<span class="li-sub">분량과 내용은 <strong>내 수준과 일정에 맞춰</strong> 정해요</span></li>
+          <li>수업 사이 카톡 질문</li>
+          <li>필요할 때 추가 자료</li>
+        </ul>
+      </div>
+
+      <div class="sec-title" style="margin-top:32px;">수업 구성</div>
+      <div class="sec-body">요일과 시간은 처음에 정해서 고정합니다.<br>바꿔야 할 땐 <strong>하루 전에만 말씀해 주시면</strong> 자유롭게 옮길 수 있어요.</div>
+      <div class="media"><img src="img/schedule.png" alt="수업 일정표 예시 — 회차·결석·보강 기록" loading="lazy"></div>
       <div class="info-grid">
-        <div class="info-card">
-          <div class="info-label">수업료</div>
-          <div><span class="price">240,000</span><span class="price-unit">원 / 4회</span></div>
-          <div class="info-sub">1회 60,000원 — 1:1 맞춤 수업</div>
-        </div>
         <div class="info-card">
           <div class="info-label">수업 시간</div>
           <div class="info-value">주 1회 · 60분</div>
@@ -499,50 +647,21 @@
           <div class="info-sub">강의자료·숙제 모두 공유</div>
         </div>
         <div class="info-card">
-          <div class="info-label">스케줄</div>
-          <div class="info-value">원하는 요일·시간 고정</div>
-          <div class="info-sub">변경 시 3일 전 말씀해 주세요</div>
-        </div>
-        <div class="info-card">
           <div class="info-label">환불</div>
           <div class="info-value">진행 회차 차감 후 환불</div>
           <div class="info-sub">진행한 회차만큼 차감</div>
         </div>
       </div>
+      <ul class="notice-list">
+        <li>숙제 분량은 같이 정합니다. 다만 정한 만큼은 해오셔야 다음 수업이 이어져요. 못 하신 주가 있으면 미리 말씀해 주세요.</li>
+        <li>수업 시간이 60분보다 늘어날 수 있으니 다음 일정을 넉넉히 비워두세요.</li>
+      </ul>
       <div class="mid-cta">
         <a href="https://dahyeonjang.github.io/jjangspeak/level-test.html" target="_blank">내 수준에 맞는지 무료로 확인하기 →</a>
         <div class="mid-cta-note">레벨테스트 후 맞춤 분석 리포트를 보내드려요</div>
       </div>
     </div>
 
-    <!--
-    ═══════════════════════════════════════════
-    수강생 후기 섹션 — 첫 후기를 받으면 아래 주석을 해제하고 내용을 채워주세요.
-    ═══════════════════════════════════════════
-    <div class="section">
-      <div class="eyebrow">수강생 후기</div>
-      <div class="sec-title">먼저 함께한 분들의 이야기</div>
-      <div class="answer-box" style="margin-bottom:10px;">
-        "【후기 내용 — 예: 알파벳부터 시작했는데 두 달 만에 짧은 문장으로 말할 수 있게 됐어요.】"<br>
-        <strong>— 【닉네임/이니셜】 님 (수강 ○개월 차)</strong>
-      </div>
-      <div class="answer-box">
-        "【후기 내용】"<br>
-        <strong>— 【닉네임/이니셜】 님</strong>
-      </div>
-    </div>
-    -->
-
-    <!-- 이런 분들 -->
-    <div class="section">
-      <div class="eyebrow">이런 분들과 함께합니다</div>
-      <ul class="check-list">
-        <li>숙제 분량은 원하시는 만큼 맞춰드립니다. 하루 10분만 하고 싶으시면 그렇게, 더 하고 싶으시면 더 드려요.</li>
-        <li>빠르게보다 꾸준하게, 오래 쓰는 영어를 원하시는 분</li>
-        <li>모르는 건 카톡으로 언제든 질문하고 싶으신 분</li>
-        <li>추가 자료가 필요하면 언제든 요청하실 분</li>
-      </ul>
-    </div>
 
     <!-- 주의사항 -->
     <div class="section">
@@ -550,9 +669,7 @@
       <div class="warn-box">
         <div class="warn-title">수업 전 확인 사항</div>
         <ul class="warn-list">
-          <li>숙제 분량은 같이 정합니다. 다만 정한 만큼은 해오셔야 다음 수업이 이어져요. 못 하신 주가 있으면 미리 말씀해 주시면 됩니다.</li>
           <li>처음엔 빠르게 배우고 싶은 마음이 생기지만, 꾸준함이 가장 빠른 길입니다. 조급해하지 않아도 됩니다.</li>
-          <li>수업 시간이 60분보다 늘어날 수 있으니 다음 일정을 넉넉히 비워두세요.</li>
         </ul>
       </div>
     </div>
