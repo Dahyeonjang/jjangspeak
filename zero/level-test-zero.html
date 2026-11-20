@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>짱스픽 제로 — 무료 영어 레벨테스트</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <!--
+    짱스픽 제로 레벨테스트 페이지 (초안 · 2026-11-20 · 쌤)
+    - 디자인·전송 방식은 jjangspeak/level-test.html을 본떴다(숨은 iframe으로 formResponse POST).
+    - 문항·선택지 글자의 정본은 MyRecords/05 짱스픽/짱스픽제로/짱스픽제로_폼생성.gs — 한 글자라도 다르면 구글 폼이 응답을 거른다.
+    - 확인 모드: 주소 끝에 ?dry=1 → 실제로 보내지 않고 보낼 값을 console에 찍는다(window.__zeroPayload에도 남김).
+    - 이미지·외부 파일을 쓰지 않는다 → 배포 위치(jjangspeak/level-test-zero.html)로 옮겨도 깨지는 경로가 없다.
+  -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #f0f2f0;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #1a1a1a;
+      min-height: 100vh;
+      padding: 32px 16px 80px;
+    }
+    #app { max-width: 640px; margin: 0 auto; }
+
+    /* HEADER */
+    .test-header {
+      background: #0a3d2e;
+      border-radius: 16px;
+      padding: 32px 32px 28px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .test-header::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: rgba(29,158,117,0.18);
+    }
+    .brand-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; position: relative; }
+    .brand-label { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; color: #5DCAA5; }
+    .zero-badge {
+      font-size: 11px; font-weight: 700; color: #0a3d2e; background: #9FE1CB;
+      border-radius: 999px; padding: 3px 10px;
+    }
+    .test-header h1 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 14px; position: relative; }
+    .intro-list { list-style: none; position: relative; }
+    .intro-list li {
+      font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.7;
+      padding-left: 14px; position: relative;
+    }
+    .intro-list li::before { content: '·'; position: absolute; left: 2px; color: #5DCAA5; }
+    .intro-lead { font-size: 14px; color: #fff; margin-bottom: 8px; position: relative; line-height: 1.6; }
+    .dry-flag {
+      display: none; position: relative; margin-top: 12px;
+      font-size: 12px; font-weight: 700; color: #3A1D00; background: #FAE100;
+      border-radius: 8px; padding: 6px 10px;
+    }
+    .dry .dry-flag { display: inline-block; }
+
+    /* PROGRESS */
+    .progress-wrap { margin-bottom: 16px; }
+    .progress-top { display: flex; justify-content: space-between; font-size: 13px; color: #555; margin-bottom: 6px; }
+    .progress-bar-bg { background: #dde8e4; border-radius: 999px; height: 8px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: #1D9E75; border-radius: 999px; transition: width 0.4s ease; }
+
+    /* CARD */
+    .section-card {
+      background: #fff; border: 1px solid #e0ebe6; border-radius: 16px;
+      padding: 26px 28px; margin-bottom: 16px; display: none;
+    }
+    .section-card.visible { display: block; }
+    .section-title { font-size: 17px; font-weight: 700; color: #0a3d2e; margin-bottom: 14px; }
+    .part-intro {
+      font-size: 14px; color: #0f6e56; background: #f0faf6; border-radius: 10px;
+      padding: 12px 14px; line-height: 1.7; margin-bottom: 22px; white-space: pre-line;
+    }
+
+    /* QUESTIONS */
+    .q-block { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #f0f0f0; }
+    .q-block:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .q-label { font-size: 15px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; line-height: 1.6; word-break: keep-all; }
+    .q-sub {
+      font-size: 15px; color: #1a1a1a; background: #f7faf8; border-left: 3px solid #1D9E75;
+      border-radius: 0 10px 10px 0; padding: 10px 14px; margin-bottom: 12px;
+      line-height: 1.7; white-space: pre-line;
+    }
+    .q-note { font-size: 12px; color: #777; line-height: 1.6; margin-top: 8px; white-space: pre-line; }
+    .req { color: #c0392b; font-weight: 700; margin-left: 3px; }
+    .opt-tag { font-size: 12px; font-weight: 400; color: #999; margin-left: 4px; }
+
+    /* CHOICES */
+    .choice-group { display: flex; flex-direction: column; gap: 8px; }
+    .choice-group.row { flex-direction: row; flex-wrap: wrap; }
+    .choice-group.row .choice { flex: 1 1 90px; justify-content: center; }
+    .choice {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px; border-radius: 10px; border: 1px solid #e0e8e4;
+      cursor: pointer; font-size: 15px; color: #333; background: #fff;
+      transition: all 0.15s; min-width: 0; word-break: keep-all;
+    }
+    .choice:hover { border-color: #5DCAA5; background: #f0faf6; }
+    .choice input { accent-color: #1D9E75; width: 18px; height: 18px; flex: none; }
+    .choice.selected { border-color: #1D9E75; background: #E1F5EE; }
+    .other-input { margin-top: 8px; display: none; }
+    .other-input.show { display: block; }
+
+    /* TEXT */
+    .text-input {
+      width: 100%; padding: 12px 14px; font-size: 16px;
+      font-family: 'Noto Sans KR', sans-serif; border: 1px solid #d0ddd8;
+      border-radius: 10px; background: #fff; color: #1a1a1a; resize: vertical;
+      transition: border-color 0.15s;
+    }
+    .text-input:focus { outline: none; border-color: #1D9E75; }
+
+    /* 결과 받을 곳 · 동의 */
+    .contact-box { background: #f7faf8; border: 1px solid #d7e8e1; border-radius: 12px; padding: 18px; }
+    .contact-box .q-block { border-bottom-color: #e3eee9; }
+    .consent-text {
+      font-size: 12px; color: #555; line-height: 1.7; white-space: pre-line;
+      background: #fff; border: 1px solid #e0e8e4; border-radius: 10px;
+      padding: 10px 12px; margin-bottom: 10px;
+    }
+
+    /* ERROR */
+    .q-block.q-error .q-label { color: #c0392b; }
+    .q-block.q-error .text-input, .q-block.q-error .choice { border-color: #e07a7a; }
+    .error-msg {
+      display: none; background: #fff3f3; border: 1px solid #f0aaaa; border-radius: 10px;
+      padding: 10px 14px; font-size: 13px; color: #c0392b; margin-top: 14px;
+    }
+    .error-msg.visible { display: block; }
+
+    /* NAV */
+    .nav-row { display: flex; justify-content: space-between; margin-top: 20px; gap: 12px; }
+    .btn {
+      padding: 13px 24px; border-radius: 10px; font-size: 15px; font-weight: 500;
+      font-family: 'Noto Sans KR', sans-serif; cursor: pointer;
+      border: 1px solid #c5d5cf; background: #fff; color: #333; transition: all 0.15s;
+    }
+    .btn:hover { background: #f0f4f2; }
+    .btn-primary { background: #0a3d2e; color: #fff; border-color: #0a3d2e; flex: 1; }
+    .btn-primary:hover { background: #0f5c42; }
+    .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* KAKAO (링크가 있을 때만) */
+    .kakao-box { margin-top: 28px; background: #0a3d2e; border-radius: 14px; padding: 24px 20px; text-align: center; display: none; }
+    .kakao-box.show { display: block; }
+    .kakao-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .kakao-sub { font-size: 13px; color: #9FE1CB; line-height: 1.7; margin-bottom: 16px; }
+    .kakao-btn {
+      display: inline-flex; align-items: center; gap: 8px; background: #FAE100; color: #3A1D00;
+      font-size: 14px; font-weight: 700; padding: 13px 22px; border-radius: 10px; text-decoration: none;
+    }
+    .kakao-icon { width: 20px; height: 20px; }
+
+    /* SUBMIT OVERLAY */
+    .submit-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(10,61,46,0.85);
+      z-index: 100; align-items: center; justify-content: center; padding: 16px;
+    }
+    .submit-overlay.visible { display: flex; }
+    .submit-box { background: #fff; border-radius: 16px; padding: 36px 28px; max-width: 400px; width: 100%; text-align: center; }
+    .submit-icon {
+      width: 56px; height: 56px; background: #E1F5EE; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 18px;
+      font-size: 26px; color: #0f6e56; font-weight: 700;
+    }
+    .submit-box h2 { font-size: 18px; font-weight: 700; color: #0a3d2e; margin-bottom: 10px; }
+    .submit-box p { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 24px; white-space: pre-line; }
+    .submit-box .btn-primary { width: 100%; }
+    .dry-note { font-size: 12px; color: #a05a00; margin: -12px 0 18px; display: none; }
+    .dry .dry-note { display: block; }
+
+    @media (max-width: 480px) {
+      body { padding: 16px 16px 64px; }
+      .test-header { padding: 24px 20px 22px; }
+      .section-card { padding: 22px 18px; }
+      .contact-box { padding: 14px; }
+      .btn { padding: 13px 18px; }
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <div class="test-header">
+    <div class="brand-row">
+      <span class="brand-label">JJANGSPEAK ZERO · 짱스픽 제로</span>
+      <span class="zero-badge">왕초보 전용 · 무료</span>
+    </div>
+    <h1>무료 영어 레벨테스트</h1>
+    <p class="intro-lead" id="introLead"></p>
+    <ul class="intro-list" id="introList"></ul>
+    <span class="dry-flag">확인 모드 — 제출해도 실제로 보내지 않아요</span>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <span id="progressLabel"></span>
+      <span id="progressName"></span>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+  </div>
+
+  <div id="sections"></div>
+
+  <div id="errorMsg" class="error-msg" role="alert"></div>
+
+  <div class="nav-row">
+    <button class="btn" id="btnPrev" type="button" disabled>← 이전</button>
+    <button class="btn btn-primary" id="btnNext" type="button">다음 →</button>
+  </div>
+</div>
+
+<div class="submit-overlay" id="submitOverlay">
+  <div class="submit-box">
+    <div class="submit-icon">✓</div>
+    <h2>제출됐어요</h2>
+    <p id="confirmText"></p>
+    <div class="dry-note">확인 모드라 실제로는 보내지 않았어요. 보낼 값은 console에 있어요.</div>
+    <button class="btn btn-primary" type="button" id="btnClose">확인</button>
+  </div>
+</div>
+
+<script>
+// ───────── 다현님이 채울 자리 ─────────
+const OPEN_CHAT_URL = '';   // 짱스픽 제로 오픈카톡 링크. 비워 두면 오픈카톡 상자가 안 보인다
+// ─────────────────────────────────────
+
+const DRY = new URLSearchParams(location.search).get('dry') === '1';
+
+// ===== ZERO_DATA_START — 아래 글자는 짱스픽제로_폼생성.gs와 한 글자도 달라선 안 된다 (대조 스크립트가 이 블록을 읽는다) =====
+const DK = '모르겠어요';
+const ZERO = {
+  description: [
+    '영어를 처음 시작하는 분을 위한 무료 레벨테스트예요.',
+    '',
+    '· 걸리는 시간: 5~10분',
+    '· 영어 문제 13개 (고르는 문제 6개 · 직접 써 보는 문제 7개)',
+    "· 모르는 문제는 '모르겠어요'를 고르거나 비워 두셔도 돼요.",
+    '· 점수는 화면에 나오지 않아요. 선생님이 답을 직접 보고 학습 방향을 알려 드려요.',
+    '· 결과는 맨 앞에 적어 주신 번호로 카톡으로 보내 드려요.'
+  ].join('\n'),
+  confirmation: '제출됐어요. 끝까지 풀어 주셔서 고맙습니다.\n'
+    + '선생님이 답변을 확인한 후 개별적으로 학습 방향을 안내해 드립니다.\n'
+    + '결과는 적어 주신 번호로 카톡으로 보내 드려요.',
+  phonePattern: '^01[016789][- ]?[0-9]{3,4}[- ]?[0-9]{4}$',
+  phoneError: '010-1234-5678처럼 휴대폰 번호를 적어 주세요.',
+  sections: [
+    { title: '1. 결과 리포트를 받으실 곳', help: '작성해 주신 번호로 맞춤 분석 리포트를 카톡으로 보내드려요.', boxed: true, items: [
+      { key: 'name', type: 'text', title: '이름', help: '예) 장다현', required: true },
+      { key: 'phone', type: 'phone', title: '전화번호 (카톡)',
+        help: '예) 010-1234-5678\n'
+          + '연락처는 레벨테스트 결과를 보내드리는 데만 씁니다. 홍보·광고에는 쓰지 않아요.\n'
+          + '결과만 받아보셔도 괜찮습니다 — 수업 등록은 필수가 아니에요.', required: true },
+      { key: 'source', type: 'radio', title: '짱스픽 제로를 어디서 알게 되셨어요?', help: '', required: false, other: true,
+        choices: ['인스타그램', '유튜브', '네이버 블로그', '지인 소개'] },
+      { key: 'consent', type: 'checkbox', title: '결과 안내를 위한 개인정보 수집·이용에 동의해 주세요.',
+        help: [
+          '[결과 안내를 위한 개인정보 수집·이용 동의]',
+          '· 목적: 레벨테스트 결과를 카카오톡으로 보내 드리기 위해',
+          '· 항목: 이름, 전화번호(카카오톡)',
+          '· 보유 기간: 결과 안내 후 6개월. 기간이 지나면 지웁니다.',
+          '· 동의를 거부할 권리가 있어요. 다만 결과를 보내 드리는 데 꼭 필요한 정보라, 동의하지 않으시면 테스트를 제출할 수 없어요.'
+        ].join('\n'),
+        choices: ['동의합니다.'], required: true, other: false }
+    ]},
+    { title: '2. 지금의 영어', help: '정답이 없는 질문이에요. 편하게 답해 주세요.', items: [
+      { key: 'self', type: 'radio', title: '지금 내 영어는 어느 정도라고 생각하세요?',
+        help: '아래로 갈수록 한 칸씩 올라가요. 가장 가까운 것 하나를 골라 주세요.', required: true, other: false,
+        choices: ['아는 영어 단어가 몇 개 안 돼요.', '쉬운 단어는 보면 뜻을 알아요.', '짧고 쉬운 문장은 읽고 뜻을 알 수 있어요.',
+          '문장은 읽히는데, 직접 만들려고 하면 막혀요.', '쉬운 문장은 천천히 써서 만들 수 있어요.', '쉬운 문장은 말로도 할 수 있어요.'] },
+      { key: 'reason', type: 'paragraph', title: '영어를 배우려는 이유를 적어 주세요.',
+        help: '한 줄이어도 괜찮아요. 예) 여행 가서 직접 주문해 보고 싶어요.', required: false },
+      { key: 'hard', type: 'paragraph', title: '영어 공부에서 어려운 점을 적어 주세요.',
+        help: '한 줄이어도 괜찮아요. 예) 단어는 아는데 문장으로 못 만들겠어요.', required: false }
+    ]},
+    { title: '3. 골라 보기 (5문제)', help: "알맞은 것을 하나 골라 주세요.\n모르면 '모르겠어요'를 골라 주세요. 그것도 진단에 그대로 쓰여요.", items: [
+      { key: 'p1', type: 'radio', title: "문제 1. '나는 학생입니다.'를 영어로 바르게 쓴 것은?", help: '', required: true, other: false,
+        choices: ['I am a student.', 'You are a student.', 'I like a student.', DK] },
+      { key: 'p2', type: 'radio', title: '문제 2. I have a dog. 은 무슨 뜻일까요?', help: '', required: true, other: false,
+        choices: ['나는 개를 좋아해요.', '나는 개가 한 마리 있어요.', '나는 개를 원해요.', DK] },
+      { key: 'p3', type: 'radio', title: "문제 3. '나는 커피를 좋아해요.'를 영어로 바르게 쓴 것은?", help: '', required: true, other: false,
+        choices: ['I am like coffee.', 'I coffee like.', 'I like coffee.', DK] },
+      { key: 'p4', type: 'radio', title: "문제 4. '나는 피곤해요.'를 영어로 바르게 쓴 것은?", help: '', required: true, other: false,
+        choices: ['I am tired.', 'I tired.', 'I do tired.', DK] },
+      { key: 'p5', type: 'radio', title: '문제 5. 빈칸에 알맞은 말은?', help: 'She ___ happy. (그녀는 행복해요.)', required: true, other: false, row: true,
+        choices: ['am', 'are', 'is', DK] }
+    ]},
+    { title: '4. 문장 만들어 보기 (5문제)', help: '단어를 순서대로 놓거나, 문장을 조금 바꿔 써 보는 문제예요.\n'
+        + '대문자·마침표·물음표는 신경 쓰지 않으셔도 돼요.\n'
+        + '모르면 비워 두고 다음으로 넘어가셔도 괜찮아요.', items: [
+      { key: 'p6', type: 'english', title: '문제 6. 단어를 순서대로 놓아 문장을 만들어 주세요.',
+        help: '뜻: 나는 영어를 공부해요.\n단어: English / study / I', required: false },
+      { key: 'p7', type: 'english', title: '문제 7. 단어를 순서대로 놓아 문장을 만들어 주세요.',
+        help: '뜻: 당신은 커피를 좋아하나요?\n단어: like / you / coffee / do', required: false },
+      { key: 'p8', type: 'radio', title: '문제 8. 빈칸에 알맞은 말은?', help: 'I ___ like milk. (나는 우유를 좋아하지 않아요.)', required: false, other: false, row: true,
+        choices: ['am', "don't", "doesn't", DK] },
+      { key: 'p9', type: 'english', title: "문제 9. 뜻이 '나는 행복하지 않아요.'가 되도록 바꿔 써 주세요.",
+        help: 'I am happy. (나는 행복해요.)', required: false },
+      { key: 'p10', type: 'english', title: "문제 10. 뜻이 '당신은 바쁜가요?'가 되도록 바꿔 써 주세요.",
+        help: 'You are busy. (당신은 바빠요.)', required: false }
+    ]},
+    { title: '5. 직접 써 보기 (3문제)', help: '한국어 문장을 영어로 써 주세요.\n'
+        + '단어가 안 떠오르면 그 자리만 한국어로 써도 돼요. 예) I like 떡볶이.\n'
+        + '비워 두셔도 괜찮아요.', kakao: true, items: [
+      { key: 'p11', type: 'english', title: '문제 11. 나는 물을 마셔요.', help: '', required: false },
+      { key: 'p12', type: 'english', title: '문제 12. 나는 영어를 공부하고 싶어요.', help: '', required: false },
+      { key: 'p13', type: 'english', title: '문제 13. 당신은 어디에 살아요?', help: '', required: false },
+      { key: 'message', type: 'paragraph', title: '선생님께 하고 싶은 말이 있으면 남겨 주세요.',
+        help: '영어 때문에 곤란했던 일, 이루고 싶은 것, 궁금한 것 무엇이든요. 비워 두셔도 돼요.', required: false }
+    ]}
+  ]
+};
+// ===== ZERO_DATA_END =====
+
+// ───────── 새 구글 폼 entry 번호 — 한 곳에만 둔다 ─────────
+// 셋째 판 폼(2026-11-20 14:25 생성, 프랭크가 라이브 viewform에서 번호를 뽑아 채움).
+// TODO가 하나라도 남아 있으면 실제 제출은 막히고, 확인 모드(?dry=1)에서만 값을 찍는다.
+const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeNZAO48_2PO4dG0gJyJSJj4aZclU17_XyOVit6350AgC1aZA/formResponse';
+const ENTRY = {
+  name:    '1288949732',
+  phone:   '374454605',
+  source:  '903476842',
+  consent: '301604851',
+  self:    '1153351695',
+  reason:  '1289431000',
+  hard:    '1763709687',
+  p1:  '1596514723', p2:  '1337293790', p3:  '186679762', p4:  '302559542', p5:  '1938220307',
+  p6:  '1565570443', p7:  '264149569', p8:  '681959918', p9:  '504871205', p10: '1445041193',
+  p11: '911782620', p12: '2042712056', p13: '815054418',
+  message: '694905706'
+};
+const PAGE_HISTORY = '0,1,2,3,4';   // 5쪽 폼을 한 번에 보낼 때 (미확인 — 프랭크 실제 제출 시험에서 확인)
+
+const OTHER = '__other_option__';
+const sectionsEl = document.getElementById('sections');
+const total = ZERO.sections.length;
+let current = 0;
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+// ── 머리말: 설명 첫 줄은 문장, 나머지 「·」 줄은 목록으로 ──
+(function renderIntro() {
+  const lines = ZERO.description.split('\n').filter(function (l) { return l.trim(); });
+  document.getElementById('introLead').textContent = lines[0];
+  const ul = document.getElementById('introList');
+  lines.slice(1).forEach(function (l) { ul.appendChild(el('li', '', l.replace(/^·\s*/, ''))); });
+  document.getElementById('confirmText').textContent = ZERO.confirmation;
+  if (DRY) document.body.classList.add('dry');
+})();
+
+// ── 문항 그리기 ──
+function renderChoices(item, block) {
+  const multi = item.type === 'checkbox';
+  const group = el('div', 'choice-group' + (item.row ? ' row' : ''));
+  const name = 'q_' + item.key;
+  const values = item.choices.slice();
+  if (item.other) values.push(OTHER);
+  values.forEach(function (val) {
+    const label = el('label', 'choice');
+    const input = document.createElement('input');
+    input.type = multi ? 'checkbox' : 'radio';
+    input.name = name;
+    input.value = val;
+    label.appendChild(input);
+    label.appendChild(el('span', '', val === OTHER ? '기타' : val));
+    group.appendChild(label);
+  });
+  block.appendChild(group);
+  if (item.other) {
+    const other = el('input', 'text-input other-input');
+    other.type = 'text';
+    other.id = name + '_other';
+    other.placeholder = '직접 적어 주세요';
+    block.appendChild(other);
+  }
+  group.addEventListener('change', function () {
+    group.querySelectorAll('input').forEach(function (inp) {
+      inp.closest('.choice').classList.toggle('selected', inp.checked);
+    });
+    if (item.other) {
+      const on = !!group.querySelector('input[value="' + OTHER + '"]:checked');
+      const o = document.getElementById(name + '_other');
+      o.classList.toggle('show', on);
+      if (on && document.activeElement && document.activeElement.value === OTHER) o.focus();
+    }
+  });
+}
+
+ZERO.sections.forEach(function (sec, si) {
+  const card = el('div', 'section-card' + (si === 0 ? ' visible' : ''));
+  card.id = 'sec' + si;
+  card.appendChild(el('div', 'section-title', sec.title));
+  if (sec.help) card.appendChild(el('div', 'part-intro', sec.help));
+  const holder = sec.boxed ? el('div', 'contact-box') : card;
+  if (sec.boxed) card.appendChild(holder);
+
+  sec.items.forEach(function (item) {
+    const block = el('div', 'q-block');
+    block.id = 'block_' + item.key;
+    const label = el('div', 'q-label', item.title);
+    if (item.required) label.appendChild(el('span', 'req', '*'));
+    else label.appendChild(el('span', 'opt-tag', '(비워도 돼요)'));
+    block.appendChild(label);
+
+    if (item.type === 'text' || item.type === 'phone') {
+      const inp = el('input', 'text-input');
+      inp.id = 'q_' + item.key;
+      if (item.type === 'phone') {
+        inp.type = 'tel'; inp.inputMode = 'tel'; inp.autocomplete = 'tel'; inp.placeholder = '010-1234-5678';
+      } else {
+        inp.type = 'text'; inp.autocomplete = 'name'; inp.placeholder = '이름';
+      }
+      block.appendChild(inp);
+      if (item.help) block.appendChild(el('div', 'q-note', item.help));
+    } else if (item.type === 'english') {
+      if (item.help) block.appendChild(el('div', 'q-sub', item.help));
+      const inp = el('input', 'text-input');
+      inp.type = 'text';
+      inp.id = 'q_' + item.key;
+      inp.placeholder = '영어로 써 주세요';
+      // 폰 자동 고침이 답을 바꾸지 않게 — 쓴 그대로가 진단 재료다
+      inp.setAttribute('autocapitalize', 'off');
+      inp.setAttribute('autocorrect', 'off');
+      inp.setAttribute('autocomplete', 'off');
+      inp.spellcheck = false;
+      block.appendChild(inp);
+    } else if (item.type === 'paragraph') {
+      if (item.help) block.appendChild(el('div', 'q-note', item.help));
+      const ta = el('textarea', 'text-input');
+      ta.id = 'q_' + item.key;
+      ta.rows = 4;
+      block.appendChild(ta);
+    } else {
+      if (item.help) {
+        const consentLike = item.key === 'consent';
+        block.appendChild(el('div', consentLike ? 'consent-text' : 'q-sub', item.help));
+      }
+      renderChoices(item, block);
+    }
+    holder.appendChild(block);
+  });
+
+  if (sec.kakao) {
+    const box = el('div', 'kakao-box' + (OPEN_CHAT_URL ? ' show' : ''));
+    box.appendChild(el('div', 'kakao-title', '결과를 더 빨리 받고 싶다면'));
+    box.appendChild(el('div', 'kakao-sub', '제출한 뒤 오픈카톡으로 한 줄 남겨 주세요.'));
+    const a = el('a', 'kakao-btn');
+    a.href = OPEN_CHAT_URL || '#';
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.innerHTML = '<svg class="kakao-icon" viewBox="0 0 24 24" fill="#3A1D00" aria-hidden="true"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.514 1.394 4.73 3.5 6.107L4.5 21l4.618-2.309A11.14 11.14 0 0 0 12 19c5.523 0 10-3.477 10-7.5S17.523 3 12 3z"/></svg>';
+    a.appendChild(document.createTextNode('오픈카톡으로 카톡하기'));
+    box.appendChild(a);
+    card.appendChild(box);
+  }
+  sectionsEl.appendChild(card);
+});
+
+// ── 값 읽기 ──
+function textVal(key) {
+  const e = document.getElementById('q_' + key);
+  return e ? e.value.trim() : '';
+}
+function checkedVals(key) {
+  return Array.prototype.map.call(
+    document.querySelectorAll('input[name="q_' + key + '"]:checked'),
+    function (i) { return i.value; });
+}
+
+// ── 섹션 검사: 필수 빈칸 · 전화번호 형식 · 기타 글자 ──
+function validateSection(si) {
+  const errEl = document.getElementById('errorMsg');
+  let firstMsg = '';
+  let firstBlock = null;
+  ZERO.sections[si].items.forEach(function (item) {
+    const block = document.getElementById('block_' + item.key);
+    block.classList.remove('q-error');
+    let msg = '';
+    if (item.type === 'text' || item.type === 'phone' || item.type === 'english' || item.type === 'paragraph') {
+      const v = textVal(item.key);
+      if (item.required && !v) msg = item.type === 'phone' ? '결과를 받으실 전화번호를 적어 주세요.' : item.title + ' 칸을 채워 주세요.';
+      else if (item.type === 'phone' && !new RegExp(ZERO.phonePattern).test(v)) msg = ZERO.phoneError;
+    } else {
+      const vals = checkedVals(item.key);
+      if (item.required && !vals.length) {
+        msg = item.key === 'consent' ? '결과를 보내 드리려면 개인정보 수집·이용 동의가 필요해요.' : '「' + item.title + '」에 답해 주세요.';
+      } else if (vals.indexOf(OTHER) !== -1 && !document.getElementById('q_' + item.key + '_other').value.trim()) {
+        msg = '「기타」를 고르셨으면 내용을 적어 주세요.';
+      }
+    }
+    if (msg) {
+      block.classList.add('q-error');
+      if (!firstMsg) { firstMsg = msg; firstBlock = block; }
+    }
+  });
+  if (firstMsg) {
+    errEl.textContent = firstMsg;
+    errEl.classList.add('visible');
+    firstBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return false;
+  }
+  errEl.classList.remove('visible');
+  return true;
+}
+
+// ── 보낼 값: 문항마다 자기 entry로 (묶지 않는다) ──
+function collectAll() {
+  const pairs = [];
+  ZERO.sections.forEach(function (sec) {
+    sec.items.forEach(function (item) {
+      const key = 'entry.' + ENTRY[item.key];
+      if (item.type === 'radio' || item.type === 'checkbox') {
+        checkedVals(item.key).forEach(function (val) {
+          if (val === OTHER) {
+            pairs.push([key, OTHER]);
+            pairs.push([key + '.other_option_response', document.getElementById('q_' + item.key + '_other').value.trim()]);
+          } else {
+            pairs.push([key, val]);
+          }
+        });
+      } else {
+        const v = textVal(item.key);
+        if (v) pairs.push([key, v]);
+      }
+    });
+  });
+  pairs.push(['pageHistory', PAGE_HISTORY]);
+  return pairs;
+}
+
+function submitToGoogle() {
+  const pairs = collectAll();
+  window.__zeroPayload = pairs;
+  const todo = FORM_ACTION === 'TODO' || Object.keys(ENTRY).some(function (k) { return ENTRY[k] === 'TODO'; });
+  if (todo && !DRY) {
+    // entry가 비어 있는 판은 실제로 보내지 않는다 — 응답이 엉뚱한 칸에 들어가거나 통째로 걸러진다
+    console.error('[짱스픽 제로] ENTRY에 TODO가 남아 있어 제출하지 않았어요.');
+    document.getElementById('errorMsg').textContent = '지금은 제출할 수 없어요. 잠시 뒤 다시 시도해 주세요.';
+    document.getElementById('errorMsg').classList.add('visible');
+    document.getElementById('btnNext').disabled = false;
+    return;
+  }
+  if (DRY) {
+    if (todo) console.warn('[확인 모드] ENTRY에 TODO가 남아 있어요 — 프랭크가 새 폼 번호로 채울 자리.');
+    console.log('[확인 모드] 보낼 곳: ' + FORM_ACTION);
+    console.table(pairs.map(function (p) { return { name: p[0], value: p[1] }; }));
+    console.log('[확인 모드] 본문: ' + new URLSearchParams(pairs).toString());
+    document.getElementById('submitOverlay').classList.add('visible');
+    return;
+  }
+  // CORS 우회: 숨은 iframe으로 제출 (기존 짱스픽 level-test.html과 같은 방식)
+  const iframe = document.createElement('iframe');
+  iframe.name = 'hidden_iframe_zero';
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = FORM_ACTION;
+  form.target = 'hidden_iframe_zero';
+  pairs.forEach(function (p) {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = p[0];
+    input.value = p[1];
+    form.appendChild(input);
+  });
+  document.body.appendChild(form);
+  form.submit();
+  setTimeout(function () { form.remove(); iframe.remove(); }, 3000);
+  document.getElementById('submitOverlay').classList.add('visible');
+}
+
+// ── 이동 ──
+function show(idx) {
+  document.getElementById('sec' + current).classList.remove('visible');
+  current = idx;
+  document.getElementById('sec' + current).classList.add('visible');
+  document.getElementById('btnPrev').disabled = current === 0;
+  document.getElementById('btnNext').textContent = current === total - 1 ? '제출하기' : '다음 →';
+  document.getElementById('progressLabel').textContent = (current + 1) + ' / ' + total;
+  document.getElementById('progressName').textContent = ZERO.sections[current].title.replace(/^\d+\.\s*/, '');
+  document.getElementById('progressBar').style.width = Math.round((current + 1) / total * 100) + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.getElementById('btnNext').addEventListener('click', function () {
+  if (!validateSection(current)) return;
+  if (current === total - 1) {
+    // 제출 직전에 처음부터 다시 확인 (이전 버튼으로 돌아가 지운 경우까지)
+    for (let i = 0; i < total; i++) {
+      if (!validateSection(i)) { show(i); validateSection(i); return; }
+    }
+    document.getElementById('btnNext').disabled = true;
+    submitToGoogle();
+    return;
+  }
+  show(current + 1);
+});
+document.getElementById('btnPrev').addEventListener('click', function () {
+  document.getElementById('errorMsg').classList.remove('visible');
+  if (current > 0) show(current - 1);
+});
+document.getElementById('btnClose').addEventListener('click', function () {
+  document.getElementById('submitOverlay').classList.remove('visible');
+  if (DRY) document.getElementById('btnNext').disabled = false;   // 확인 모드는 다시 눌러 볼 수 있게
+});
+
+show(0);
+</script>
+</body>
+</html>
